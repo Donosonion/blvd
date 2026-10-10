@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BLVD Guide</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3CclipPath id='t'%3E%3Crect width='256' height='256' rx='56'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23t)'%3E%3Crect width='256' height='256' fill='%233a2068'/%3E%3Ccircle cx='158' cy='118' r='58' fill='%23ff9a55'/%3E%3Cpolygon points='104,256 186,112 284,256' fill='%239B6BFF'/%3E%3Cpolygon points='-24,256 92,84 212,256' fill='%233D1A78'/%3E%3C/g%3E%3C/svg%3E">
+<meta property="og:title" content="BLVD — Source textures, materials and Garry's Mod props">
+<meta property="og:description" content="Edit VTF/VMT, convert images in batches, turn models and logos into Garry's Mod props and check your maps. Windows, free.">
 <meta name="description" content="A guide for new BLVD users: VTF textures, VMT materials, batch conversion, Garry's Mod props and map tools. Also in Portuguese.">
 <style>
   :root {
@@ -198,6 +201,13 @@
   .lang-toggle button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .85rem; padding: 5px 12px; cursor: pointer; }
   .lang-toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
   .theme-toggle { margin-top: 0; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; position: relative; z-index: 1; }
+  .cta a { border-radius: 10px; padding: 10px 18px; font-weight: 600; text-decoration: none; font-size: .95rem; }
+  .cta .download { background: #f4efff; color: #3d1a78; }
+  .cta .download:hover { background: #ffffff; }
+  .cta .ghost { color: #f4efff; border: 1px solid rgba(255, 255, 255, .35); }
+  .cta .ghost:hover { background: rgba(255, 255, 255, .1); }
+  .hero a { color: inherit; }
 </style>
 
 <script>
@@ -275,6 +285,7 @@
       <p>BLVD creates and edits Source engine textures and materials, converts images in batches, turns models and logos
         into Garry's Mod props and checks the content of your maps. This guide shows what each part does and how to get
         from a file on your computer to the result in the game.</p>
+      <div class="cta"><a class="download" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest/download/BLVD-win-x64.zip">Download for Windows</a><a class="ghost" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest">Release notes</a></div>
       <div class="tags"><span>VTF &amp; VMT</span><span>Batch conversion</span><span>Garry's Mod props</span><span>Maps</span><span>Windows 10/11</span></div>
     </header>
 
@@ -282,7 +293,7 @@
       <h2>Getting started</h2>
       <p class="lead">Nothing to install: unzip and open.</p>
       <ol class="steps">
-        <li>Download <code>BLVD-win-x64.zip</code> from the releases page. It runs on any Windows 10/11 without installing
+        <li>Download <code>BLVD-win-x64.zip</code> from the <a href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest">releases page</a>. It runs on any Windows 10/11 without installing
           anything; the <code>-fx</code> package is smaller but needs the .NET 8 Desktop Runtime.</li>
         <li>Unzip it into a folder of yours (for example <code>Documents\BLVD</code>) and open <code>BLVD.exe</code>.</li>
         <li>The pages are on the left: <b>Viewer</b>, <b>Material</b>, <b>Convert</b>, <b>Model</b>, <b>Map</b> and
@@ -540,6 +551,7 @@
       <p>O BLVD cria e edita texturas e materiais dos jogos Source, converte imagens em lote, transforma modelos e logos
         em props do Garry's Mod e confere o conteúdo dos seus mapas. Este guia mostra o que cada parte faz e como chegar
         ao resultado no jogo.</p>
+      <div class="cta"><a class="download" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest/download/BLVD-win-x64.zip">Baixar para Windows</a><a class="ghost" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest">Notas da versão</a></div>
       <div class="tags"><span>VTF e VMT</span><span>Conversão em lote</span><span>Props do Garry's Mod</span><span>Mapas</span><span>Windows 10/11</span></div>
     </header>
 
@@ -547,7 +559,7 @@
       <h2>Começando</h2>
       <p class="lead">Não precisa instalar: é só extrair e abrir.</p>
       <ol class="steps">
-        <li>Baixe <code>BLVD-win-x64.zip</code> na página de releases. É a versão que roda em qualquer Windows 10/11 sem
+        <li>Baixe <code>BLVD-win-x64.zip</code> na <a href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest">página de releases</a>. É a versão que roda em qualquer Windows 10/11 sem
           instalar nada; a <code>-fx</code> é menor, mas exige o .NET 8 Desktop Runtime.</li>
         <li>Extraia numa pasta sua (por exemplo, <code>Documentos\BLVD</code>) e abra o <code>BLVD.exe</code>.</li>
         <li><b>Coloque o programa em português:</b> ele abre em inglês. Vá em <b>Settings → Language</b>, escolha
