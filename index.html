@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLVD Guide</title>
+<meta name="description" content="A guide for new BLVD users: VTF textures, VMT materials, batch conversion, Garry's Mod props and map tools. Also in Portuguese.">
+<style>
+  :root {
+    --bg: #f6f5fa;
+    --surface: #ffffff;
+    --surface-2: #f0edf8;
+    --text: #1d1b24;
+    --muted: #5c5870;
+    --faint: #8a869c;
+    --line: #e2deec;
+    --accent: #6d2fe0;
+    --accent-soft: #efe7ff;
+    --accent-text: #5b21c9;
+    --sun: #e8743b;
+    --ok: #1f8a5b;
+    --warn: #a35a00;
+    --warn-soft: #fff4e2;
+    --code-bg: #f1eef7;
+    --shadow: 0 1px 2px rgba(30, 20, 60, .06), 0 4px 16px rgba(30, 20, 60, .05);
+  }
+  :root[data-theme="dark"] {
+    --bg: #141519;
+    --surface: #1c1e23;
+    --surface-2: #22252b;
+    --text: #ecebf2;
+    --muted: #aeaabd;
+    --faint: #7f7b8f;
+    --line: #2b2e35;
+    --accent: #9b6bff;
+    --accent-soft: #2a2140;
+    --accent-text: #c4a8ff;
+    --sun: #ff9a62;
+    --ok: #4cc58c;
+    --warn: #f0b45a;
+    --warn-soft: #2e2618;
+    --code-bg: #24262d;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .2);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141519;
+      --surface: #1c1e23;
+      --surface-2: #22252b;
+      --text: #ecebf2;
+      --muted: #aeaabd;
+      --faint: #7f7b8f;
+      --line: #2b2e35;
+      --accent: #9b6bff;
+      --accent-soft: #2a2140;
+      --accent-text: #c4a8ff;
+      --sun: #ff9a62;
+      --ok: #4cc58c;
+      --warn: #f0b45a;
+      --warn-soft: #2e2618;
+      --code-bg: #24262d;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .2);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+  body {
+    margin: 0;
+    overflow-wrap: anywhere;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: Bahnschrift, "Segoe UI", system-ui, sans-serif; line-height: 1.2; letter-spacing: -.01em; }
+  h2 { font-size: 1.6rem; margin: 0 0 .4rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .5rem; }
+  p { margin: .5rem 0 .9rem; }
+  a { color: var(--accent-text); }
+  code, kbd {
+    font-family: "Cascadia Code", Consolas, ui-monospace, monospace;
+    font-size: .88em;
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: .08em .35em;
+  }
+  kbd { border: 1px solid var(--line); border-bottom-width: 2px; white-space: nowrap; }
+  ul, ol { padding-left: 1.3rem; margin: .4rem 0 1rem; }
+  li { margin: .25rem 0; }
+  li::marker { color: var(--faint); }
+
+  .layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); max-width: 1180px; margin: 0 auto; gap: 40px; padding: 0 24px; }
+  nav.toc { position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto; padding: 28px 0 40px; }
+  nav.toc .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; text-decoration: none; color: var(--text); }
+  nav.toc .brand svg { width: 34px; height: 34px; flex: none; }
+  nav.toc .brand b { font-family: Bahnschrift, "Segoe UI", sans-serif; font-size: 1.25rem; letter-spacing: .02em; }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+  nav.toc li { margin: 0; }
+  nav.toc ol a {
+    display: block; padding: 6px 10px; border-radius: 7px; color: var(--muted); text-decoration: none; font-size: .93rem;
+    counter-increment: toc;
+  }
+  nav.toc ol a::before { content: counter(toc, decimal-leading-zero); color: var(--faint); font-variant-numeric: tabular-nums; margin-right: 10px; font-size: .8rem; }
+  nav.toc ol a:hover { background: var(--surface-2); color: var(--text); }
+  nav.toc ol a.active { background: var(--accent-soft); color: var(--accent-text); font-weight: 600; }
+  .theme-toggle {
+    margin-top: 18px; display: inline-flex; gap: 6px; align-items: center; border: 1px solid var(--line); background: var(--surface);
+    color: var(--muted); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: .85rem; cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--text); }
+
+  main { padding: 28px 0 80px; min-width: 0; }
+  .hero {
+    background: linear-gradient(160deg, #2a1b54 0%, #4a2577 60%, #5b2c83 100%); color: #f4efff; border-radius: 18px;
+    padding: 36px 36px 32px; position: relative; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -60px; top: -40px; width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, #ffd166 0%, #ff7a45 55%, transparent 70%); opacity: .55;
+  }
+  .hero h1 { font-size: 2.3rem; margin: 0 0 .5rem; position: relative; z-index: 1; }
+  .hero p { margin: 0; max-width: 620px; color: #ddd2f7; position: relative; z-index: 1; font-size: 1.05rem; }
+  .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; position: relative; z-index: 1; }
+  .hero .tags span { background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; padding: 3px 12px; font-size: .85rem; }
+
+  section { padding-top: 44px; }
+  section > .lead { color: var(--muted); font-size: 1.04rem; margin-top: 0; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin: 18px 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .card h4 { margin: 0 0 4px; font-family: Bahnschrift, "Segoe UI", sans-serif; font-size: 1.02rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .93rem; }
+  .card a.more { display: inline-block; margin-top: 8px; font-size: .88rem; text-decoration: none; }
+  .card .ico { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-text); display: grid; place-items: center; margin-bottom: 10px; }
+  .card .ico svg { width: 18px; height: 18px; }
+
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 14px 0 18px; }
+  .steps > li { position: relative; padding: 12px 16px 12px 54px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; }
+  .steps > li::before {
+    counter-increment: step; content: counter(step); position: absolute; left: 14px; top: 11px; width: 26px; height: 26px;
+    border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .85rem;
+  }
+  .recipe { border-left: 3px solid var(--accent); padding: 2px 0 2px 16px; margin: 18px 0; }
+  .recipe > b { display: block; font-family: Bahnschrift, "Segoe UI", sans-serif; color: var(--accent-text); margin-bottom: 2px; }
+
+  .note, .tip {
+    border-radius: 10px; padding: 12px 16px; margin: 16px 0; font-size: .95rem;
+  }
+  .tip { background: var(--accent-soft); }
+  .note { background: var(--warn-soft); }
+  .tip b, .note b { display: block; margin-bottom: 2px; }
+  .note b { color: var(--warn); }
+  .tip b { color: var(--accent-text); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: .94rem; background: var(--surface); border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 600; font-size: .85rem; color: var(--muted); }
+  tr:last-child td { border-bottom: 0; }
+  .table-wrap { overflow-x: auto; }
+
+  .glossary { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 12px 0 18px; }
+  .glossary dt { font-weight: 600; }
+  .glossary dd { margin: 0; color: var(--muted); }
+
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; }
+  summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none; position: relative; padding-right: 40px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; position: absolute; right: 16px; top: 9px; font-size: 1.3rem; color: var(--faint); }
+  details[open] summary::after { content: "–"; }
+  details > div { padding: 0 16px 12px; color: var(--muted); }
+
+  footer { color: var(--faint); font-size: .88rem; border-top: 1px solid var(--line); margin-top: 56px; padding-top: 18px; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 16px; }
+    nav.toc { position: static; max-height: none; padding: 18px 0 0; }
+    nav.toc ol { display: flex; flex-wrap: wrap; gap: 4px; }
+    nav.toc ol a { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; font-size: .85rem; }
+    nav.toc ol a::before { display: none; }
+    .hero { padding: 26px 22px; }
+    .hero h1 { font-size: 1.8rem; }
+    .glossary { grid-template-columns: 1fr; }
+    .glossary dd { margin-bottom: 8px; }
+  }
+  @media print {
+    nav.toc, .theme-toggle { display: none; }
+    .layout { display: block; }
+    section { break-inside: avoid-page; }
+  }
+
+  /* Languages: English by default; Portuguese when chosen. */
+  [data-lang="pt"] { display: none; }
+  :root[data-ui-lang="pt"] [data-lang="pt"] { display: block; }
+  :root[data-ui-lang="pt"] [data-lang="en"] { display: none; }
+  .switches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
+  .lang-toggle button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .85rem; padding: 5px 12px; cursor: pointer; }
+  .lang-toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .theme-toggle { margin-top: 0; }
+</style>
+
+<script>
+  // Before drawing: the language saved or asked for (?lang=pt or #pt-…), English otherwise.
+  (function () {
+    var lang = "en";
+    try { lang = localStorage.getItem("blvd-guide-lang") || lang; } catch (e) {}
+    var q = /[?&]lang=(\w+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf("pt") === 0 ? "pt" : "en";
+    if (location.hash.indexOf("#pt-") === 0) lang = "pt";
+    document.documentElement.setAttribute("data-ui-lang", lang === "pt" ? "pt" : "en");
+    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+  })();
+</script>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc" aria-label="Contents">
+    <a class="brand" href="#">
+      <svg viewBox="0 0 256 256" aria-hidden="true">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A1B54"/><stop offset="1" stop-color="#5B2C83"/></linearGradient>
+          <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD166"/><stop offset="1" stop-color="#FF7A45"/></linearGradient>
+          <clipPath id="tile"><rect width="256" height="256" rx="56"/></clipPath>
+        </defs>
+        <g clip-path="url(#tile)">
+          <rect width="256" height="256" fill="url(#sky)"/>
+          <circle cx="158" cy="118" r="58" fill="url(#sun)"/>
+          <polygon points="104,256 186,112 284,256" fill="#9B6BFF"/>
+          <polygon points="-24,256 92,84 212,256" fill="#3D1A78"/>
+          <polygon points="92,84 115,118 101,112 92,124 82,110 70,117" fill="#F3EEFF"/>
+        </g>
+      </svg>
+      <b>BLVD</b>
+    </a>
+    <ol data-lang="en">
+      <li><a href="#en-start">Getting started</a></li>
+      <li><a href="#en-concepts">Source concepts in 2 minutes</a></li>
+      <li><a href="#en-viewer">Viewer</a></li>
+      <li><a href="#en-material">Material</a></li>
+      <li><a href="#en-convert">Convert</a></li>
+      <li><a href="#en-model">Model</a></li>
+      <li><a href="#en-from-image">From image</a></li>
+      <li><a href="#en-map">Map</a></li>
+      <li><a href="#en-overview">Overview and signs</a></li>
+      <li><a href="#en-settings">Settings and Windows integration</a></li>
+      <li><a href="#en-shortcuts">Shortcuts</a></li>
+      <li><a href="#en-problems">Common problems</a></li>
+    </ol>
+    <ol data-lang="pt">
+      <li><a href="#pt-inicio">Começando</a></li>
+      <li><a href="#pt-conceitos">Conceitos do Source em 2 minutos</a></li>
+      <li><a href="#pt-visualizador">Visualizador</a></li>
+      <li><a href="#pt-material">Material</a></li>
+      <li><a href="#pt-converter">Converter</a></li>
+      <li><a href="#pt-modelo">Modelo</a></li>
+      <li><a href="#pt-a-partir-de-imagem">A partir de imagem</a></li>
+      <li><a href="#pt-mapa">Mapa</a></li>
+      <li><a href="#pt-overview">Overview e placas</a></li>
+      <li><a href="#pt-configuracoes">Configurações e integração com o Windows</a></li>
+      <li><a href="#pt-atalhos">Atalhos</a></li>
+      <li><a href="#pt-problemas">Problemas comuns</a></li>
+    </ol>
+    <div class="switches">
+      <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+        <button type="button" data-set-lang="en">English</button><button type="button" data-set-lang="pt">Português</button>
+      </div>
+      <button class="theme-toggle" type="button" id="theme">◐ <span data-lang="en" style="display:inline">Theme</span><span data-lang="pt">Tema</span></button>
+    </div>
+  </nav>
+
+  <main data-lang="en" lang="en">
+    <header class="hero">
+      <h1>BLVD Guide</h1>
+      <p>BLVD creates and edits Source engine textures and materials, converts images in batches, turns models and logos
+        into Garry's Mod props and checks the content of your maps. This guide shows what each part does and how to get
+        from a file on your computer to the result in the game.</p>
+      <div class="tags"><span>VTF &amp; VMT</span><span>Batch conversion</span><span>Garry's Mod props</span><span>Maps</span><span>Windows 10/11</span></div>
+    </header>
+
+    <section id="en-start">
+      <h2>Getting started</h2>
+      <p class="lead">Nothing to install: unzip and open.</p>
+      <ol class="steps">
+        <li>Download <code>BLVD-win-x64.zip</code> from the releases page. It runs on any Windows 10/11 without installing
+          anything; the <code>-fx</code> package is smaller but needs the .NET 8 Desktop Runtime.</li>
+        <li>Unzip it into a folder of yours (for example <code>Documents\BLVD</code>) and open <code>BLVD.exe</code>.</li>
+        <li>The pages are on the left: <b>Viewer</b>, <b>Material</b>, <b>Convert</b>, <b>Model</b>, <b>Map</b> and
+          <b>Settings</b>. Textures and materials open in tabs, like a web browser.</li>
+        <li>The quickest way to work is <b>drag and drop</b>: drop files anywhere on the window and each goes to the right
+          page — images to Convert, <code>.vtf</code> to the Viewer, <code>.vmt</code> to Material, models to Model and
+          maps to Map.</li>
+      </ol>
+      <div class="cards">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></div><h4>Look at and edit a texture</h4><p>Open a VTF, check channels, mipmaps and frames, adjust flags and export.</p><a class="more" href="#en-viewer">Viewer →</a></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h7"/><path d="m16 15 2 2 4-4"/></svg></div><h4>Convert many images</h4><p>PNG, JPG, TGA, WebP, SVG… become game-ready VTF + VMT.</p><a class="more" href="#en-convert">Convert →</a></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m12 12 8-4.5M12 12v9M12 12 4 7.5"/></svg></div><h4>Make a prop</h4><p>An FBX, OBJ, glTF… model — or a logo — becomes a static Garry's Mod prop, no Blender needed.</p><a class="more" href="#en-model">Model →</a></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></div><h4>Check a map</h4><p>See what is missing, what is custom, and gather it all into an addon to publish.</p><a class="more" href="#en-map">Map →</a></div>
+      </div>
+      <div class="tip"><b>Choose your language</b>BLVD starts in English. To use it in Portuguese, go to <b>Settings →
+        Language</b>, pick <i>Português (Brasil)</i> and click <b>Restart now</b>.</div>
+      <div class="tip"><b>Your settings travel with the program</b>They are kept in <code>BLVD.settings.json</code>, next to
+        <code>BLVD.exe</code>. Copy the folder to another computer and your preferences go with it.</div>
+    </section>
+
+    <section id="en-concepts">
+      <h2>Source concepts in 2 minutes</h2>
+      <p class="lead">If you have never made content for Source, these words come up all the time.</p>
+      <dl class="glossary">
+        <dt>VTF</dt><dd>A texture (the picture) in Source's format. It can have transparency, mipmaps, several animation frames or the 6 faces of a cubemap.</dd>
+        <dt>VMT</dt><dd>The material: a text file that says which VTF to use and how to draw it (shader, shine, transparency, normal map…). The game and Hammer use the <b>material</b>, not the texture.</dd>
+        <dt><code>$basetexture</code></dt><dd>The VMT line that points to the VTF, starting from the <code>materials</code> folder and without extension: <code>materials/props/crate.vtf</code> becomes <code>props/crate</code>. BLVD fills it in for you.</dd>
+        <dt>Power of two</dt><dd>Texture sides should be 64, 128, 256, 512, 1024, 2048… Images of other sizes are resized when converted (the log tells you).</dd>
+        <dt>DXT1 / DXT5</dt><dd>Compressed formats: DXT1 for opaque images, DXT5 when there is transparency. BLVD picks from the image.</dd>
+        <dt>Normal map</dt><dd>A texture that fakes surface relief. In the VMT it is the <code>$bumpmap</code>.</dd>
+        <dt>Static prop</dt><dd>A model (<code>.mdl</code>) that stays put in the map: signs, furniture, letters. It is compiled by <code>studiomdl</code>, which comes with Garry's Mod.</dd>
+        <dt>Units</dt><dd>Source's measure. A player is 72 units tall (about 1.83 m).</dd>
+        <dt>Addon</dt><dd>A folder in <code>garrysmod/addons/</code> with <code>materials/</code>, <code>models/</code> and so on. Garry's Mod loads everything in it.</dd>
+      </dl>
+    </section>
+
+    <section id="en-viewer">
+      <h2>Viewer — look at and edit textures</h2>
+      <p class="lead">Opens and creates VTFs, shows every detail and edits the texture's properties.</p>
+      <ul>
+        <li><b>Open:</b> <kbd>Ctrl</kbd>+<kbd>O</kbd>, recent files or drag and drop. <b>Create from images:</b>
+          <kbd>Ctrl</kbd>+<kbd>N</kbd> — one image, or several as animation frames, cubemap faces or volume slices.</li>
+        <li><b>Move around:</b> the mouse wheel zooms at the cursor; drag to pan; fit to window and 1:1.</li>
+        <li><b>Inspect:</b> RGB, R, G, B and A channels; transparency over a checkerboard or a plain colour; 2×2 tiling to
+          see whether the texture repeats seamlessly; pixel coordinates; frames, faces, slices and mipmaps; Play/Stop for
+          animations; HDR exposure.</li>
+        <li><b>Properties:</b> VTF version, start frame, bump scale, reflectivity, flags and resources (LOD, Information).</li>
+        <li><b>Edit menu:</b> rotate, flip, resize (keeping the proportions, with ½ and ×2), invert the green channel of
+          normal maps (DirectX ↔ OpenGL), swap red and blue, regenerate mipmaps.</li>
+        <li><b>Save and export:</b> Save, Save as, Export (PNG, TGA, BMP, JPG) and Export all for every frame. Copy and Paste
+          keep transparency — pasting creates a new texture from the copied image.</li>
+      </ul>
+      <div class="tip"><b>Texture options</b>When creating or pasting, BLVD asks for the format (opaque and with
+        transparency), resizing, mipmaps, version, flags and a few more details. The defaults suit almost everything; use
+        <i>Reset to defaults</i> if you get lost.</div>
+    </section>
+
+    <section id="en-material">
+      <h2>Material — writing VMTs</h2>
+      <p class="lead">A text editor made for VMT, and a form for those who'd rather not type it.</p>
+      <ul>
+        <li>Syntax colours, line numbers, zoom (<kbd>Ctrl</kbd>+wheel) and <b>Validate</b> / <b>Strict</b> to find mistakes.</li>
+        <li><b>Create…</b> builds the VMT from a form: textures (base, bump, envmap mask…), shader, surface property and
+          options such as <code>$translucent</code>, <code>$alphatest</code>, <code>$additive</code>, <code>$nocull</code>
+          and <code>$halflambert</code>, with a live preview.</li>
+        <li>If a saved texture is open in the Viewer, Create… starts with it as the base texture.</li>
+      </ul>
+      <div class="recipe"><b>Recipe: a material for a new texture</b>
+        Open the VTF in the Viewer and save it inside a <code>materials</code> folder → go to Material → <b>Create…</b> →
+        pick the shader (<code>LightmappedGeneric</code> for map walls and floors, <code>VertexLitGeneric</code> for
+        models) → save the <code>.vmt</code> next to the <code>.vtf</code>.</div>
+    </section>
+
+    <section id="en-convert">
+      <h2>Convert — many images at once</h2>
+      <p class="lead">The shortest way from a folder of images to materials that work in the game.</p>
+      <ol class="steps">
+        <li>Drag the images (or a folder) onto the window. In <b>Selected images</b> each image becomes a VTF + VMT; in
+          <b>Folder</b> you convert a whole folder (with subfolders and a filter such as <code>*.png</code>), also the other
+          way round, VTF → image.</li>
+        <li>Choose the output folder — preferably inside your addon's <code>…/materials/</code>, so the
+          <code>$basetexture</code> comes out right.</li>
+        <li>Click <b>Preview</b> to see what will be written, without writing anything: sizes, format, animations and
+          linked maps.</li>
+        <li>Click <b>Convert</b>. There is progress, <b>Cancel</b>, a log and a summary at the end.</li>
+      </ol>
+      <h3>Time savers</h3>
+      <ul>
+        <li><b>Linked maps:</b> <code>crate.png</code> + <code>crate_normal.png</code> + <code>crate_spec.png</code> become
+          a single <code>crate.vmt</code> with <code>$bumpmap</code> and <code>$envmapmask</code> (also <code>_n</code>,
+          <code>_nrm</code>, <code>_bump</code>, <code>_specular</code>).</li>
+        <li><b>Animation:</b> <code>fire_000.png</code>, <code>fire_001.png</code>… become one animated
+          <code>fire.vtf</code>, with the VMT already playing it (frames per second of your choice).</li>
+        <li><b>Watch:</b> in Folder mode, BLVD watches the folder and converts each image again as soon as you save it in
+          your image editor.</li>
+        <li><b>Keep VMTs:</b> doesn't overwrite VMTs you edited by hand.</li>
+        <li>Formats: PNG, JPG, TGA, BMP, DDS, GIF, TIF, <b>WebP</b> and <b>SVG</b> (an SVG is drawn at high resolution,
+          without stretching).</li>
+      </ul>
+      <div class="tip"><b>Without opening BLVD</b>Turn on the Explorer menus in Settings: right-click images →
+        <i>Convert to VTF</i>. A small window opens with the VTF and VMT folders and the material form.</div>
+    </section>
+
+    <section id="en-model">
+      <h2>Model — from a 3D model to a Garry's Mod prop</h2>
+      <p class="lead">No Blender and no QC writing: open the model, check the preview and click Compile.</p>
+      <ol class="steps">
+        <li><b>Open the model</b> (FBX, glTF/GLB, OBJ, DAE, 3DS, BLEND, PLY or STL) with <b>Open model…</b> or drag it in.</li>
+        <li><b>Check size and orientation.</b> The preview shows a player (<code>info_player_start</code>) at real size
+          next to it. Adjust units, up axis and turn; if BLVD says the model seems to be lying down, click
+          <b>Stand it up</b>.</li>
+        <li><b>Scale:</b> type the height in units (72 = a player) or use the ½, 100%, ×2 and Player shortcuts.</li>
+        <li><b>Prop:</b> the model path (<code>models/props_custom/…</code>), the surface property (metal, wood…), the
+          collision and the hitboxes.</li>
+        <li><b>Optimization:</b> texture size limit (1024 px recommended), LODs (simpler versions for far away) and only
+          the files Garry's Mod uses. The size estimate shows before compiling.</li>
+        <li><b>Compile.</b> BLVD converts the textures, writes the files and runs Garry's Mod's <code>studiomdl</code>. The
+          result goes to <code>garrysmod/addons/blvd_props</code> (or the folder you choose); <b>Open output folder</b>
+          shows it.</li>
+      </ol>
+      <h3>Collision</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Option</th><th>When to use it</th></tr>
+        <tr><td><b>Fitted to the shape</b> (default)</td><td>Almost always. Splits the model into convex pieces that follow its shape: the inside of a C, the space under a table and the gaps between letters stay open. <i>Most pieces</i> caps how many (fewer = lighter physics).</td></tr>
+        <tr><td>One hull around the model</td><td>Simple, compact objects (a crate, a barrel).</td></tr>
+        <tr><td>One hull per part</td><td>Models made of separate, convex parts.</td></tr>
+        <tr><td>Collision meshes in the file</td><td>When the model brings its own collision meshes (<code>UCX_*</code>, <code>*_phys</code>). Chosen automatically when the file has them.</td></tr>
+        <tr><td>None</td><td>Decoration nobody will touch.</td></tr>
+      </table></div>
+      <ul>
+        <li>In the <b>3D preview</b> collision is green and hitboxes are orange. Drag to orbit, wheel to zoom, double-click
+          to reset. Dark, light or checkerboard background and a Hammer grid.</li>
+        <li>After compiling, <b>Compiled</b> shows the prop read back from the files written — exactly what the game will
+          see, with each LOD.</li>
+        <li>Models without a material file (common with AI-generated models) pick up the images next to them named like
+          <code>albedo</code>, <code>basecolor</code>, <code>texture_diffuse</code> and <code>normal</code>.</li>
+      </ul>
+      <div class="note"><b>Garry's Mod must be installed</b><code>studiomdl</code> comes with Garry's Mod and is found
+        through your Steam libraries. Compiling happens in a temporary folder: the game folder is never changed.</div>
+    </section>
+
+    <section id="en-from-image">
+      <h2>From image — logos and signs in 3D</h2>
+      <p class="lead">Turns a picture into a solid prop, with the picture on the front and darker sides.</p>
+      <ol class="steps">
+        <li>On the Model page, click <b>From image…</b> (or drop an image there). It works best with a PNG, WebP or SVG
+          with a transparent background; a plain background works too.</li>
+        <li>The window draws the traced outline over the image: <span style="color:#3ddc84">green</span> around the pieces,
+          <span style="color:#ff9f43">orange</span> around the holes that stay open.</li>
+        <li>Adjust — with the slider or by typing the exact number:
+          <ul>
+            <li><b>Fill holes smaller than</b>: smaller holes (dots, the inside of small letters) are filled and just painted;</li>
+            <li><b>Outline smoothing</b>: a smoother outline with fewer triangles;</li>
+            <li><b>Thickness</b> and <b>Side brightness</b>: how thick it is and how dark the sides are.</li>
+          </ul></li>
+        <li>In <b>Size</b>, type the height, the width (the proportions are kept) or the thickness in units.</li>
+        <li><b>Make prop</b> takes the sign to the Model page, with collision already fitted to the shape. Then just compile.</li>
+      </ol>
+      <div class="tip"><b>A sign you can read from the side</b>Darker sides and a thinner sign keep every letter readable
+        from an angle. For a shopfront-sized sign, try 3 × a player's height (216 units).</div>
+    </section>
+
+    <section id="en-map">
+      <h2>Map — what your map uses</h2>
+      <p class="lead">Before you publish a map, find out what will show up purple and black for everyone else.</p>
+      <ol class="steps">
+        <li>Open a <code>.bsp</code> or <code>.vmf</code>. BLVD lists materials, decals, overlays, sprites, skybox and props,
+          and what each of them uses (the textures of each VMT, the materials of each model).</li>
+        <li>Each file is searched for the way the game does: inside the map, in the Garry's Mod folder, in addons, in the
+          extra folders you add, in the Workshop and in mounted games.</li>
+        <li>Use the filter: <b>Missing</b> (will show purple and black), <b>Custom</b> (only on your computer — must ship
+          with the map) or <b>Workshop and mounted</b>.</li>
+        <li><b>Copy custom content…</b> gathers the custom files into a folder laid out like the game, with an
+          <code>addon.json</code>, ready to publish. <b>Save report…</b> saves the list.</li>
+      </ol>
+    </section>
+
+    <section id="en-overview">
+      <h2>Overview and signs</h2>
+      <p class="lead">A top-down render of the map becomes a street map where you plan the traffic signs.</p>
+      <ul>
+        <li>On the Map page, open <b>Overview and signs</b> and choose a top-down render. The base can be the render itself
+          or a light or dark street map (roads, pavements, buildings, grass and water in flat colours).</li>
+        <li><b>Signs:</b> stop, give way, traffic lights, speed limits (20 to 80), bends, winding road, pedestrians,
+          prohibitions and text signs, with adjustable size. They follow the Brazilian standard (CONTRAN).</li>
+        <li><b>Road markings:</b> dashed and double yellow lines, edge lines, stop lines, crossings and pedestrian areas.</li>
+        <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes, <kbd>Delete</kbd> removes, <kbd>Enter</kbd> or double-click finishes a
+          line, <kbd>Esc</kbd> cancels. Everything is saved automatically next to the image.</li>
+        <li><b>Export:</b> an image with a legend (CONTRAN codes) or a <b>Source overview</b> — the minimap shown in the game —,
+          with the world area read from the <code>.bsp</code>.</li>
+      </ul>
+    </section>
+
+    <section id="en-settings">
+      <h2>Settings and Windows integration</h2>
+      <ul>
+        <li><b>Language:</b> English (default) or Português (Brasil); it applies when BLVD starts again (<b>Restart now</b>).</li>
+        <li><b>Appearance:</b> theme (Windows, light or dark) and accent colour.</li>
+        <li><b>Viewer:</b> transparency background, sounds, warnings and recent files.</li>
+        <li><b>Updates:</b> BLVD tells you when a new version is out. <b>Update now</b> downloads it, checks it and installs
+          it, restarting the program; your settings stay.</li>
+        <li><b>Explorer</b> (per user, no administrator needed): <i>Open with BLVD</i> on .vtf and .vmt files,
+          <i>Convert to VTF</i> on images and <b>.vtf thumbnails</b> in Explorer.</li>
+      </ul>
+      <div class="note"><b>Windows 11</b>The Explorer entries are under <i>Show more options</i>. If you move the BLVD
+        folder, turn the menus off and on again in Settings.</div>
+    </section>
+
+    <section id="en-shortcuts">
+      <h2>Shortcuts</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Shortcut</th><th>What it does</th></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>Open</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>N</kbd></td><td>New texture from images</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Save / Save as</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>E</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd></td><td>Export / Export all</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Copy the image / paste as a new texture</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>T</kbd> / <kbd>Ctrl</kbd>+<kbd>W</kbd></td><td>New tab / close tab (middle-click closes too)</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Tab</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Next / previous tab</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+wheel</td><td>Zoom in the VMT editor</td></tr>
+      </table></div>
+    </section>
+
+    <section id="en-problems">
+      <h2>Common problems</h2>
+      <details><summary>The texture shows purple and black in the game</summary><div>The game didn't find the material or the
+        texture. Check that the <code>.vmt</code> and the <code>.vtf</code> are inside the addon's <code>materials/</code>
+        and that <code>$basetexture</code> matches the VTF's path (without <code>materials/</code> and without extension). For
+        a map, the <a href="#en-map">Map</a> page lists exactly what is missing.</div></details>
+      <details><summary>The image came out stretched or at another size</summary><div>Textures need power-of-two sides; the
+        conversion resizes and the log says so (<code>1000×700 → 1024×512</code>). To avoid stretching, prepare the image at
+        a size like 1024×512. SVGs are drawn without stretching.</div></details>
+      <details><summary>The prop is lying down, on its side or facing backwards</summary><div>OBJ, STL and PLY don't say
+        which side is up. Use <b>Stand it up</b> or set the up axis and turn in <i>Size and orientation</i>. BLVD's props
+        face +X, like in Hammer.</div></details>
+      <details><summary>The prop is huge or tiny</summary><div>Compare it with the player in the preview and type the height
+        in units (72 = a player). If the file doesn't say its unit, choose m, cm, mm or inches.</div></details>
+      <details><summary>"Could not load" when opening an image</summary><div>BLVD says which format it is. WebP and SVG work;
+        AVIF and HEIC need Microsoft's image extensions from the Store. As a last resort, save it as PNG.</div></details>
+      <details><summary>Compile can't find studiomdl</summary><div>Garry's Mod must be installed through Steam. If it is in a
+        different library, open Garry's Mod once and try again.</div></details>
+      <details><summary>The Explorer menus don't show up</summary><div>Turn on <i>Explorer menus</i> in Settings. On Windows
+        11 they are under <i>Show more options</i>.</div></details>
+    </section>
+
+    <footer>
+      BLVD 1.1 · This guide comes with the program (<code>Guide.html</code>, next to <code>BLVD.exe</code>). BLVD is
+      distributed under the GNU GPL v2 and BLVDLib under the GNU LGPL v2.1.
+    </footer>
+  </main>
+
+  <main data-lang="pt" lang="pt-BR">
+    <header class="hero">
+      <h1>Guia do BLVD</h1>
+      <p>O BLVD cria e edita texturas e materiais dos jogos Source, converte imagens em lote, transforma modelos e logos
+        em props do Garry's Mod e confere o conteúdo dos seus mapas. Este guia mostra o que cada parte faz e como chegar
+        ao resultado no jogo.</p>
+      <div class="tags"><span>VTF e VMT</span><span>Conversão em lote</span><span>Props do Garry's Mod</span><span>Mapas</span><span>Windows 10/11</span></div>
+    </header>
+
+    <section id="pt-inicio">
+      <h2>Começando</h2>
+      <p class="lead">Não precisa instalar: é só extrair e abrir.</p>
+      <ol class="steps">
+        <li>Baixe <code>BLVD-win-x64.zip</code> na página de releases. É a versão que roda em qualquer Windows 10/11 sem
+          instalar nada; a <code>-fx</code> é menor, mas exige o .NET 8 Desktop Runtime.</li>
+        <li>Extraia numa pasta sua (por exemplo, <code>Documentos\BLVD</code>) e abra o <code>BLVD.exe</code>.</li>
+        <li><b>Coloque o programa em português:</b> ele abre em inglês. Vá em <b>Settings → Language</b>, escolha
+          <i>Português (Brasil)</i> e clique em <b>Restart now</b>. Daqui em diante este guia usa os nomes em português.</li>
+        <li>Na barra à esquerda ficam as páginas: <b>Visualizador</b>, <b>Material</b>, <b>Converter</b>, <b>Modelo</b>,
+          <b>Mapa</b> e <b>Configurações</b>. Texturas e materiais abrem em abas, como num navegador.</li>
+        <li>O jeito mais rápido de usar é <b>arrastar e soltar</b>: solte arquivos em qualquer lugar da janela e cada um vai
+          para a página certa — imagens para o Converter, <code>.vtf</code> para o Visualizador, <code>.vmt</code> para o
+          Material, modelos para o Modelo e mapas para o Mapa.</li>
+      </ol>
+      <div class="cards">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></div><h4>Ver e editar uma textura</h4><p>Abra um VTF, confira canais, mipmaps e frames, ajuste flags e exporte.</p><a class="more" href="#pt-visualizador">Visualizador →</a></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h7"/><path d="m16 15 2 2 4-4"/></svg></div><h4>Converter várias imagens</h4><p>PNG, JPG, TGA, WebP, SVG… viram VTF + VMT prontos para o jogo.</p><a class="more" href="#pt-converter">Converter →</a></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m12 12 8-4.5M12 12v9M12 12 4 7.5"/></svg></div><h4>Fazer um prop</h4><p>Um modelo FBX, OBJ, glTF… ou um logo vira prop estático do GMod, sem Blender.</p><a class="more" href="#pt-modelo">Modelo →</a></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></div><h4>Conferir um mapa</h4><p>Veja o que falta, o que é custom e junte tudo num addon para publicar.</p><a class="more" href="#pt-mapa">Mapa →</a></div>
+      </div>
+      <div class="tip"><b>As configurações andam com o programa</b>Elas ficam em <code>BLVD.settings.json</code>, ao lado do
+        <code>BLVD.exe</code>. Copiou a pasta para outro computador? As preferências vão junto.</div>
+    </section>
+
+    <section id="pt-conceitos">
+      <h2>Conceitos do Source em 2 minutos</h2>
+      <p class="lead">Se você nunca mexeu com conteúdo do Source, estes termos aparecem o tempo todo.</p>
+      <dl class="glossary">
+        <dt>VTF</dt><dd>A textura (a imagem) no formato do Source. Pode ter transparência, mipmaps, vários quadros de animação ou as 6 faces de um cubemap.</dd>
+        <dt>VMT</dt><dd>O material: um arquivo de texto que diz qual VTF usar e como desenhá-lo (shader, brilho, transparência, normal map…). O jogo e o Hammer usam o <b>material</b>, não a textura.</dd>
+        <dt><code>$basetexture</code></dt><dd>A linha do VMT que aponta para o VTF, a partir da pasta <code>materials</code> e sem extensão: <code>materials/props/caixa.vtf</code> vira <code>props/caixa</code>. O BLVD preenche sozinho.</dd>
+        <dt>Potência de 2</dt><dd>Os lados de uma textura devem ser 64, 128, 256, 512, 1024, 2048… Imagens de outros tamanhos são redimensionadas na conversão (o log avisa).</dd>
+        <dt>DXT1 / DXT5</dt><dd>Formatos comprimidos: DXT1 para imagens opacas, DXT5 quando há transparência. O BLVD escolhe pela imagem.</dd>
+        <dt>Normal map</dt><dd>Uma textura que simula relevo. No VMT é o <code>$bumpmap</code>.</dd>
+        <dt>Prop estático</dt><dd>Um modelo (<code>.mdl</code>) que fica parado no mapa: placas, móveis, letreiros. É compilado pelo <code>studiomdl</code>, que vem com o Garry's Mod.</dd>
+        <dt>Unidades</dt><dd>Medida do Source. Um jogador tem 72 unidades de altura (cerca de 1,83 m).</dd>
+        <dt>Addon</dt><dd>Uma pasta em <code>garrysmod/addons/</code> com <code>materials/</code>, <code>models/</code> etc. O GMod carrega tudo o que está nela.</dd>
+      </dl>
+    </section>
+
+    <section id="pt-visualizador">
+      <h2>Visualizador — ver e editar texturas</h2>
+      <p class="lead">Abre e cria VTFs, mostra cada detalhe e edita as propriedades da textura.</p>
+      <ul>
+        <li><b>Abrir:</b> <kbd>Ctrl</kbd>+<kbd>O</kbd>, arquivos recentes ou arrastar. <b>Criar a partir de imagens:</b>
+          <kbd>Ctrl</kbd>+<kbd>N</kbd> — uma imagem, ou várias como quadros de animação, faces de cubemap ou slices.</li>
+        <li><b>Navegar:</b> roda do mouse dá zoom no ponto do cursor; arrastar move; há ajustar à janela e 1:1.</li>
+        <li><b>Inspecionar:</b> canais RGB, R, G, B e A; transparência sobre xadrez ou cor sólida; tile 2×2 para ver se a
+          textura emenda; coordenada do pixel; frames, faces, slices e mipmaps; animação com Play/Stop; exposição HDR.</li>
+        <li><b>Propriedades:</b> versão do VTF, start frame, bump scale, reflectividade, flags e recursos (LOD, Information).</li>
+        <li><b>Editar:</b> girar, espelhar, redimensionar (com proporção, ½ e ×2), inverter o verde de normal maps
+          (DirectX ↔ OpenGL), trocar R e B e regenerar mipmaps.</li>
+        <li><b>Salvar e exportar:</b> Salvar, Salvar como, Exportar (PNG, TGA, BMP, JPG) e Exportar tudo para todos os
+          quadros. Copiar e Colar mantêm a transparência — colar cria uma textura nova a partir da imagem copiada.</li>
+      </ul>
+      <div class="tip"><b>Opções de textura</b>Ao criar ou colar, o BLVD pergunta o formato (opaco e com transparência),
+        redimensionamento, mipmaps, versão, flags e outros detalhes. Os padrões já servem para quase tudo; use
+        <i>Restaurar padrões</i> se se perder.</div>
+    </section>
+
+    <section id="pt-material">
+      <h2>Material — escrever VMTs</h2>
+      <p class="lead">Um editor de texto feito para VMT, e um formulário para quem não quer escrever à mão.</p>
+      <ul>
+        <li>Cores por sintaxe, números de linha, zoom (<kbd>Ctrl</kbd>+roda) e <b>Validar</b> / <b>Estrito</b> para achar erros.</li>
+        <li><b>Criar…</b> monta o VMT por formulário: texturas (base, bump, envmap mask…), shader, surface property e
+          opções como <code>$translucent</code>, <code>$alphatest</code>, <code>$additive</code>, <code>$nocull</code> e
+          <code>$halflambert</code>, com prévia ao vivo.</li>
+        <li>Se houver uma textura salva aberta no Visualizador, o Criar… já vem com a base texture preenchida.</li>
+      </ul>
+      <div class="recipe"><b>Receita: material para uma textura nova</b>
+        Abra o VTF no Visualizador e salve-o dentro de uma pasta <code>materials</code> → vá para Material → <b>Criar…</b> →
+        escolha o shader (<code>LightmappedGeneric</code> para paredes e chão do mapa, <code>VertexLitGeneric</code> para
+        modelos) → salve o <code>.vmt</code> ao lado do <code>.vtf</code>.</div>
+    </section>
+
+    <section id="pt-converter">
+      <h2>Converter — muitas imagens de uma vez</h2>
+      <p class="lead">O caminho mais curto de uma pasta de imagens para materiais prontos no jogo.</p>
+      <ol class="steps">
+        <li>Arraste as imagens (ou uma pasta) para a janela. Em <b>Imagens selecionadas</b> cada imagem vira um VTF + VMT;
+          em <b>Pasta</b> você converte uma pasta inteira (com subpastas e filtro como <code>*.png</code>), também no
+          sentido VTF → imagem.</li>
+        <li>Escolha a pasta de destino — de preferência dentro de <code>…/materials/</code> do seu addon, para o
+          <code>$basetexture</code> sair certo.</li>
+        <li>Clique em <b>Prévia</b> para ver o que será gravado, sem gravar nada: tamanhos, formato, animações e mapas ligados.</li>
+        <li>Clique em <b>Converter</b>. Há progresso, <b>Cancelar</b>, log e um resumo no fim.</li>
+      </ol>
+      <h3>Recursos que poupam trabalho</h3>
+      <ul>
+        <li><b>Mapas ligados:</b> <code>caixa.png</code> + <code>caixa_normal.png</code> + <code>caixa_spec.png</code>
+          viram um único <code>caixa.vmt</code> com <code>$bumpmap</code> e <code>$envmapmask</code> (também aceita
+          <code>_n</code>, <code>_nrm</code>, <code>_bump</code>, <code>_specular</code>).</li>
+        <li><b>Animação:</b> <code>fogo_000.png</code>, <code>fogo_001.png</code>… viram um <code>fogo.vtf</code> animado,
+          com o VMT já tocando a animação (quadros por segundo à escolha).</li>
+        <li><b>Observar:</b> no modo Pasta, o BLVD observa a pasta e reconverte cada imagem assim que você a salva no seu
+          editor de imagens.</li>
+        <li><b>Manter VMTs:</b> não sobrescreve VMTs que você editou à mão.</li>
+        <li>Formatos: PNG, JPG, TGA, BMP, DDS, GIF, TIF, <b>WebP</b> e <b>SVG</b> (um SVG é desenhado em alta resolução,
+          sem distorcer).</li>
+      </ul>
+      <div class="tip"><b>Sem abrir o BLVD</b>Ligue os <i>Menus do Explorer</i> em Configurações: clique com o botão direito
+        em imagens → <i>Convert to VTF</i>. Abre uma janelinha com as pastas do VTF e do VMT e o formulário do material.</div>
+    </section>
+
+    <section id="pt-modelo">
+      <h2>Modelo — de modelo 3D a prop do Garry's Mod</h2>
+      <p class="lead">Sem Blender e sem escrever QC: abra o modelo, confira a prévia e clique em Compilar.</p>
+      <ol class="steps">
+        <li><b>Abra o modelo</b> (FBX, glTF/GLB, OBJ, DAE, 3DS, BLEND, PLY ou STL) por <b>Abrir modelo…</b> ou arrastando.</li>
+        <li><b>Confira tamanho e orientação.</b> A prévia mostra um jogador (<code>info_player_start</code>) em tamanho
+          real ao lado. Ajuste unidades, eixo para cima e giro; se o BLVD avisar que o modelo parece deitado, clique em
+          <b>Pôr de pé</b>.</li>
+        <li><b>Escala:</b> digite a altura em unidades (72 = um jogador) ou use os atalhos ½, 100%, ×2 e Player.</li>
+        <li><b>Prop:</b> o caminho do modelo (<code>models/props_custom/…</code>), a surface property (metal, madeira…),
+          a colisão e as hitboxes.</li>
+        <li><b>Otimização:</b> limite das texturas (1024 px recomendado), LODs (versões mais simples para longe) e só os
+          arquivos que o GMod usa. A estimativa de tamanho aparece antes de compilar.</li>
+        <li><b>Compilar.</b> O BLVD converte texturas, gera os arquivos e roda o <code>studiomdl</code> do GMod. O resultado
+          vai para <code>garrysmod/addons/blvd_props</code> (ou a pasta que você escolher); <b>Abrir pasta de saída</b>
+          mostra o resultado.</li>
+      </ol>
+      <h3>Colisão</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Opção</th><th>Quando usar</th></tr>
+        <tr><td><b>Ajustada à forma</b> (padrão)</td><td>Quase sempre. Divide o modelo em pedaços convexos que seguem a forma: o vão de um C, o espaço embaixo de uma mesa e o espaço entre letras ficam livres. <i>Máximo de peças</i> limita quantos pedaços (menos = física mais leve).</td></tr>
+        <tr><td>Um casco em volta do modelo</td><td>Objetos simples e compactos (uma caixa, um barril).</td></tr>
+        <tr><td>Um casco por parte</td><td>Modelos montados de peças separadas e convexas.</td></tr>
+        <tr><td>Malhas de colisão do arquivo</td><td>Quando o modelo já traz malhas de colisão (<code>UCX_*</code>, <code>*_phys</code>). É escolhida sozinha quando o arquivo as tem.</td></tr>
+        <tr><td>Nenhuma</td><td>Decoração que ninguém vai tocar.</td></tr>
+      </table></div>
+      <ul>
+        <li>Na <b>prévia 3D</b> a colisão aparece em verde e as hitboxes em laranja. Arrastar gira, a roda aproxima, duplo
+          clique volta ao início. Fundo escuro, claro ou xadrez e grade do Hammer.</li>
+        <li>Depois de compilar, <b>Compilado</b> mostra o prop lido de volta dos arquivos gerados — exatamente o que o jogo
+          vai ver, com cada LOD.</li>
+        <li>Modelos sem arquivo de material (comum em modelos gerados por IA) pegam as imagens ao lado com nomes como
+          <code>albedo</code>, <code>basecolor</code>, <code>texture_diffuse</code> e <code>normal</code>.</li>
+      </ul>
+      <div class="note"><b>Precisa do Garry's Mod instalado</b>O <code>studiomdl</code> vem com o GMod e é achado pelas
+        bibliotecas da Steam. A compilação acontece numa pasta temporária: a pasta do jogo nunca é alterada.</div>
+    </section>
+
+    <section id="pt-a-partir-de-imagem">
+      <h2>A partir de imagem — logos e letreiros em 3D</h2>
+      <p class="lead">Transforma uma imagem num prop sólido, com a imagem na frente e laterais mais escuras.</p>
+      <ol class="steps">
+        <li>No Modelo, clique em <b>A partir de imagem…</b> (ou solte uma imagem na página). Funciona melhor com PNG, WebP
+          ou SVG com fundo transparente; com fundo liso também dá certo.</li>
+        <li>Na janela, o contorno traçado aparece por cima da imagem: <span style="color:#3ddc84">verde</span> nas peças e
+          <span style="color:#ff9f43">laranja</span> nos furos que ficam abertos.</li>
+        <li>Ajuste — com o controle deslizante ou digitando o número exato:
+          <ul>
+            <li><b>Preencher furos menores que</b>: furos menores (pingos, o miolo de letras pequenas) ficam preenchidos e só pintados;</li>
+            <li><b>Suavização do contorno</b>: contorno mais suave e com menos triângulos;</li>
+            <li><b>Espessura</b> e <b>Brilho das laterais</b>: espessura e quão escuras ficam as laterais.</li>
+          </ul></li>
+        <li>Em <b>Tamanho</b>, digite a altura, a largura (a proporção é mantida) ou a espessura em unidades.</li>
+        <li><b>Criar prop</b> leva o letreiro para o Modelo, já com a colisão ajustada à forma. Daí é só compilar.</li>
+      </ol>
+      <div class="tip"><b>Letreiro legível de lado</b>Laterais mais escuras e espessura menor deixam cada letra legível
+        mesmo de ângulo. Para um letreiro do tamanho de uma fachada, experimente 3 × a altura de um jogador (216 unidades).</div>
+    </section>
+
+    <section id="pt-mapa">
+      <h2>Mapa — o que o seu mapa usa</h2>
+      <p class="lead">Antes de publicar um mapa, descubra o que vai aparecer roxo e preto para os outros.</p>
+      <ol class="steps">
+        <li>Abra um <code>.bsp</code> ou <code>.vmf</code>. O BLVD lista materiais, decals, overlays, sprites, skybox e props,
+          e o que cada um usa (texturas de cada VMT, materiais de cada modelo).</li>
+        <li>Cada arquivo é procurado como o jogo procura: dentro do mapa, na pasta do GMod, em addons, nas pastas extras que
+          você indicar, na Workshop e nos jogos montados.</li>
+        <li>Use o filtro: <b>Faltando</b> (vai aparecer roxo e preto), <b>Custom</b> (só existe no seu computador — precisa
+          ir com o mapa) ou <b>Workshop e montados</b>.</li>
+        <li><b>Copiar conteúdo custom…</b> junta os arquivos custom numa pasta com a estrutura do jogo e um
+          <code>addon.json</code>, pronta para publicar. <b>Salvar relatório…</b> salva a lista.</li>
+      </ol>
+    </section>
+
+    <section id="pt-overview">
+      <h2>Overview e placas</h2>
+      <p class="lead">Um render de cima do mapa vira um mapa de ruas, onde você planeja a sinalização.</p>
+      <ul>
+        <li>Na página Mapa, abra <b>Overview e placas</b> e escolha um render de cima do mapa. A base pode ser o próprio
+          render ou um mapa de ruas claro ou escuro (ruas, calçadas, prédios, grama, água em cores planas).</li>
+        <li><b>Placas:</b> PARE, Dê a preferência, semáforo, velocidade (20 a 80), curvas, pista sinuosa, pedestres,
+          proibições e placas de texto, com tamanho ajustável.</li>
+        <li><b>Sinalização horizontal:</b> linhas amarelas tracejada e dupla, bordo, retenção, faixas e áreas de pedestres.</li>
+        <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz, <kbd>Delete</kbd> apaga, <kbd>Enter</kbd> ou duplo clique termina uma
+          linha, <kbd>Esc</kbd> cancela. Tudo é salvo sozinho ao lado da imagem.</li>
+        <li><b>Exportar:</b> uma imagem com legenda (códigos do CONTRAN) ou um <b>overview do Source</b> — o mapinha que
+          aparece no jogo —, com a área do mundo lida do <code>.bsp</code>.</li>
+      </ul>
+    </section>
+
+    <section id="pt-configuracoes">
+      <h2>Configurações e integração com o Windows</h2>
+      <ul>
+        <li><b>Idioma:</b> inglês (padrão) ou português; vale quando o BLVD abre de novo (<b>Reiniciar agora</b>).</li>
+        <li><b>Aparência:</b> tema (Windows, claro ou escuro) e cor de destaque.</li>
+        <li><b>Visualizador:</b> fundo da transparência, sons, avisos e arquivos recentes.</li>
+        <li><b>Atualizações:</b> o BLVD avisa quando sai uma versão nova. <b>Atualizar agora</b> baixa, confere e instala
+          sozinho, reiniciando o programa; suas configurações ficam.</li>
+        <li><b>Explorer</b> (por usuário, sem pedir administrador): <i>Open with BLVD</i> em .vtf e .vmt,
+          <i>Convert to VTF</i> nas imagens e <b>miniaturas de .vtf</b> no Explorer.</li>
+      </ul>
+      <div class="note"><b>Windows 11</b>Os itens do Explorer ficam em <i>Mostrar mais opções</i>. Se mover a pasta do BLVD,
+        desligue e ligue os menus de novo em Configurações.</div>
+    </section>
+
+    <section id="pt-atalhos">
+      <h2>Atalhos</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Atalho</th><th>O que faz</th></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>Abrir</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>N</kbd></td><td>Nova textura a partir de imagens</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Salvar / Salvar como</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>E</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd></td><td>Exportar / Exportar tudo</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Copiar a imagem / colar como textura nova</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>T</kbd> / <kbd>Ctrl</kbd>+<kbd>W</kbd></td><td>Nova aba / fechar aba (clique do meio também fecha)</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Tab</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Próxima / aba anterior</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+roda</td><td>Zoom no editor de VMT</td></tr>
+      </table></div>
+    </section>
+
+    <section id="pt-problemas">
+      <h2>Problemas comuns</h2>
+      <details><summary>A textura aparece roxa e preta no jogo</summary><div>O jogo não achou o material ou a textura. Confira
+        se o <code>.vmt</code> e o <code>.vtf</code> estão dentro de <code>materials/</code> do addon e se o
+        <code>$basetexture</code> bate com o caminho do VTF (sem <code>materials/</code> e sem extensão). Para um mapa, a
+        página <a href="#pt-mapa">Mapa</a> lista exatamente o que falta.</div></details>
+      <details><summary>A imagem saiu esticada ou com outro tamanho</summary><div>Texturas precisam de lados em potência
+        de 2; a conversão redimensiona e o log avisa (<code>1000×700 → 1024×512</code>). Para não distorcer, prepare a imagem
+        já num tamanho como 1024×512. SVGs são desenhados sem distorção.</div></details>
+      <details><summary>O prop ficou deitado, de lado ou de costas</summary><div>OBJ, STL e PLY não dizem qual lado é para
+        cima. Use <b>Pôr de pé</b> ou ajuste o eixo para cima e o giro em <i>Tamanho e orientação</i>. Os props do BLVD
+        ficam de frente para +X, como no Hammer.</div></details>
+      <details><summary>O prop está gigante ou minúsculo</summary><div>Compare com o jogador na prévia e digite a altura em
+        unidades (72 = um jogador). Se o arquivo não informa a unidade, escolha m, cm, mm ou polegadas.</div></details>
+      <details><summary>"Não foi possível carregar" ao abrir uma imagem</summary><div>O BLVD diz qual é o formato. WebP e SVG
+        funcionam; AVIF e HEIC precisam das extensões de imagem da Microsoft Store. Em último caso, salve como PNG.</div></details>
+      <details><summary>O Compilar não acha o studiomdl</summary><div>O Garry's Mod precisa estar instalado pela Steam. Se
+        estiver numa biblioteca diferente, abra o GMod uma vez e tente de novo.</div></details>
+      <details><summary>Não aparecem os menus no Explorer</summary><div>Ligue <i>Menus do Explorer</i> em Configurações. No
+        Windows 11 eles ficam em <i>Mostrar mais opções</i>.</div></details>
+    </section>
+
+    <footer>
+      BLVD 1.1 · Este guia acompanha o programa (<code>Guide.html</code>, ao lado do <code>BLVD.exe</code>). BLVD é
+      distribuído sob a GNU GPL v2 e a BLVDLib sob a GNU LGPL v2.1.
+    </footer>
+  </main>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var theme = localStorage.getItem("blvd-guide-theme"); if (theme) root.setAttribute("data-theme", theme); } catch (e) {}
+    document.getElementById("theme").addEventListener("click", function () {
+      var dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var next = dark ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("blvd-guide-theme", next); } catch (e) {}
+    });
+
+    var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-set-lang]"));
+    function show(lang) {
+      root.setAttribute("data-ui-lang", lang);
+      root.lang = lang === "pt" ? "pt-BR" : "en";
+      document.title = lang === "pt" ? "Guia do BLVD" : "BLVD Guide";
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-set-lang") === lang ? "true" : "false"); });
+      document.querySelectorAll('#theme [data-lang]').forEach(function (s) { s.style.display = s.getAttribute("data-lang") === lang ? "inline" : "none"; });
+    }
+    show(root.getAttribute("data-ui-lang"));
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var lang = b.getAttribute("data-set-lang");
+        show(lang);
+        try { localStorage.setItem("blvd-guide-lang", lang); } catch (e) {}
+        window.scrollTo(0, 0);
+      });
+    });
+
+    // Highlight the section on screen in the contents.
+    var links = Array.prototype.slice.call(document.querySelectorAll("nav.toc ol a"));
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          links.forEach(function (a) { a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id); });
+        });
+      }, { rootMargin: "-20% 0px -70% 0px" });
+      document.querySelectorAll("main section[id]").forEach(function (s) { observer.observe(s); });
+    }
+  })();
+</script>
+</body>
+</html>
