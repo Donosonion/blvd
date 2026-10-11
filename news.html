@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLVD — what's new</title>
+<meta name="description" content="Release notes of BLVD, a free Windows tool for Source textures, materials and Garry's Mod props.">
+<meta name="theme-color" content="#7C3AED">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3CclipPath id='t'%3E%3Crect width='256' height='256' rx='56'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23t)'%3E%3Crect width='256' height='256' fill='%233a2068'/%3E%3Ccircle cx='158' cy='118' r='58' fill='%23ff9a55'/%3E%3Cpolygon points='104,256 186,112 284,256' fill='%239B6BFF'/%3E%3Cpolygon points='-24,256 92,84 212,256' fill='%233D1A78'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f6f5fa;
+    --surface: #ffffff;
+    --surface-2: #f0edf8;
+    --text: #1d1b24;
+    --muted: #5c5870;
+    --faint: #8a869c;
+    --line: #e2deec;
+    --accent: #6d2fe0;
+    --accent-soft: #efe7ff;
+    --accent-text: #5b21c9;
+    --sun: #e8743b;
+    --ok: #1f8a5b;
+    --warn: #a35a00;
+    --warn-soft: #fff4e2;
+    --code-bg: #f1eef7;
+    --shadow: 0 1px 2px rgba(30, 20, 60, .06), 0 4px 16px rgba(30, 20, 60, .05);
+  }
+  :root[data-theme="dark"] {
+    --bg: #141519;
+    --surface: #1c1e23;
+    --surface-2: #22252b;
+    --text: #ecebf2;
+    --muted: #aeaabd;
+    --faint: #7f7b8f;
+    --line: #2b2e35;
+    --accent: #9b6bff;
+    --accent-soft: #2a2140;
+    --accent-text: #c4a8ff;
+    --sun: #ff9a62;
+    --ok: #4cc58c;
+    --warn: #f0b45a;
+    --warn-soft: #2e2618;
+    --code-bg: #24262d;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .2);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141519;
+      --surface: #1c1e23;
+      --surface-2: #22252b;
+      --text: #ecebf2;
+      --muted: #aeaabd;
+      --faint: #7f7b8f;
+      --line: #2b2e35;
+      --accent: #9b6bff;
+      --accent-soft: #2a2140;
+      --accent-text: #c4a8ff;
+      --sun: #ff9a62;
+      --ok: #4cc58c;
+      --warn: #f0b45a;
+      --warn-soft: #2e2618;
+      --code-bg: #24262d;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .2);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+  body {
+    margin: 0;
+    overflow-wrap: anywhere;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: Bahnschrift, "Segoe UI", system-ui, sans-serif; line-height: 1.2; letter-spacing: -.01em; }
+  h2 { font-size: 1.6rem; margin: 0 0 .4rem; }
+  h3 { font-size: 1.1rem; margin: 1.6rem 0 .5rem; }
+  p { margin: .5rem 0 .9rem; }
+  a { color: var(--accent-text); }
+  code, kbd {
+    font-family: "Cascadia Code", Consolas, ui-monospace, monospace;
+    font-size: .88em;
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: .08em .35em;
+  }
+  kbd { border: 1px solid var(--line); border-bottom-width: 2px; white-space: nowrap; }
+  ul, ol { padding-left: 1.3rem; margin: .4rem 0 1rem; }
+  li { margin: .25rem 0; }
+  li::marker { color: var(--faint); }
+
+  .layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); max-width: 1180px; margin: 0 auto; gap: 40px; padding: 0 24px; }
+  nav.toc { position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto; padding: 28px 0 40px; }
+  nav.toc .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; text-decoration: none; color: var(--text); }
+  nav.toc .brand svg { width: 34px; height: 34px; flex: none; }
+  nav.toc .brand b { font-family: Bahnschrift, "Segoe UI", sans-serif; font-size: 1.25rem; letter-spacing: .02em; }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+  nav.toc li { margin: 0; }
+  nav.toc ol a {
+    display: block; padding: 6px 10px; border-radius: 7px; color: var(--muted); text-decoration: none; font-size: .93rem;
+    counter-increment: toc;
+  }
+  nav.toc ol a::before { content: counter(toc, decimal-leading-zero); color: var(--faint); font-variant-numeric: tabular-nums; margin-right: 10px; font-size: .8rem; }
+  nav.toc ol a:hover { background: var(--surface-2); color: var(--text); }
+  nav.toc ol a.active { background: var(--accent-soft); color: var(--accent-text); font-weight: 600; }
+  .theme-toggle {
+    margin-top: 18px; display: inline-flex; gap: 6px; align-items: center; border: 1px solid var(--line); background: var(--surface);
+    color: var(--muted); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: .85rem; cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--text); }
+
+  main { padding: 28px 0 80px; min-width: 0; }
+  .hero {
+    background: linear-gradient(160deg, #2a1b54 0%, #4a2577 60%, #5b2c83 100%); color: #f4efff; border-radius: 18px;
+    padding: 36px 36px 32px; position: relative; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -60px; top: -40px; width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, #ffd166 0%, #ff7a45 55%, transparent 70%); opacity: .55;
+  }
+  .hero h1 { font-size: 2.3rem; margin: 0 0 .5rem; position: relative; z-index: 1; }
+  .hero p { margin: 0; max-width: 620px; color: #ddd2f7; position: relative; z-index: 1; font-size: 1.05rem; }
+  .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; position: relative; z-index: 1; }
+  .hero .tags span { background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; padding: 3px 12px; font-size: .85rem; }
+
+  section { padding-top: 44px; }
+  section > .lead { color: var(--muted); font-size: 1.04rem; margin-top: 0; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin: 18px 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .card h4 { margin: 0 0 4px; font-family: Bahnschrift, "Segoe UI", sans-serif; font-size: 1.02rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .93rem; }
+  .card a.more { display: inline-block; margin-top: 8px; font-size: .88rem; text-decoration: none; }
+  .card .ico { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-text); display: grid; place-items: center; margin-bottom: 10px; }
+  .card .ico svg { width: 18px; height: 18px; }
+
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 14px 0 18px; }
+  .steps > li { position: relative; padding: 12px 16px 12px 54px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; }
+  .steps > li::before {
+    counter-increment: step; content: counter(step); position: absolute; left: 14px; top: 11px; width: 26px; height: 26px;
+    border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .85rem;
+  }
+  .recipe { border-left: 3px solid var(--accent); padding: 2px 0 2px 16px; margin: 18px 0; }
+  .recipe > b { display: block; font-family: Bahnschrift, "Segoe UI", sans-serif; color: var(--accent-text); margin-bottom: 2px; }
+
+  .note, .tip {
+    border-radius: 10px; padding: 12px 16px; margin: 16px 0; font-size: .95rem;
+  }
+  .tip { background: var(--accent-soft); }
+  .note { background: var(--warn-soft); }
+  /* The first bold word is the box's title; bold words in the text stay inline. */
+  .tip > b:first-child, .note > b:first-child { display: block; margin-bottom: 2px; }
+  .note > b:first-child { color: var(--warn); }
+  .tip > b:first-child { color: var(--accent-text); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: .94rem; background: var(--surface); border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 600; font-size: .85rem; color: var(--muted); }
+  tr:last-child td { border-bottom: 0; }
+  .table-wrap { overflow-x: auto; }
+
+  .glossary { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 12px 0 18px; }
+  .glossary dt { font-weight: 600; }
+  .glossary dd { margin: 0; color: var(--muted); }
+
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; }
+  summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none; position: relative; padding-right: 40px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; position: absolute; right: 16px; top: 9px; font-size: 1.3rem; color: var(--faint); }
+  details[open] summary::after { content: "–"; }
+  details > div { padding: 0 16px 12px; color: var(--muted); }
+
+  footer { color: var(--faint); font-size: .88rem; border-top: 1px solid var(--line); margin-top: 56px; padding-top: 18px; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 16px; }
+    nav.toc { position: static; max-height: none; padding: 18px 0 0; }
+    nav.toc ol { display: flex; flex-wrap: wrap; gap: 4px; }
+    nav.toc ol a { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; font-size: .85rem; }
+    nav.toc ol a::before { display: none; }
+    .hero { padding: 26px 22px; }
+    .hero h1 { font-size: 1.8rem; }
+    .glossary { grid-template-columns: 1fr; }
+    .glossary dd { margin-bottom: 8px; }
+  }
+  @media print {
+    nav.toc, .theme-toggle { display: none; }
+    .layout { display: block; }
+    section { break-inside: avoid-page; }
+  }
+
+  /* Languages: English by default; Portuguese when chosen. */
+  [data-lang="pt"] { display: none; }
+  :root[data-ui-lang="pt"] [data-lang="pt"] { display: block; }
+  :root[data-ui-lang="pt"] [data-lang="en"] { display: none; }
+  .switches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
+  .lang-toggle button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .85rem; padding: 5px 12px; cursor: pointer; }
+  .lang-toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .theme-toggle { margin-top: 0; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; position: relative; z-index: 1; }
+  .cta a { border-radius: 10px; padding: 10px 18px; font-weight: 600; text-decoration: none; font-size: .95rem; }
+  .cta .download { background: #f4efff; color: #3d1a78; }
+  .cta .download:hover { background: #ffffff; }
+  .cta .ghost { color: #f4efff; border: 1px solid rgba(255, 255, 255, .35); }
+  .cta .ghost:hover { background: rgba(255, 255, 255, .1); }
+  .hero a { color: inherit; }
+
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 18px 0; }
+  .gallery figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .gallery figure.wide { grid-column: 1 / -1; }
+  .gallery img { display: block; width: 100%; height: auto; }
+  .gallery figcaption { padding: 10px 14px; color: var(--muted); font-size: .92rem; }
+  .downloads { margin-top: 14px; position: relative; z-index: 1; color: #ddd2f7; font-size: .95rem; min-height: 1.4em; }
+  .downloads b { color: #fff; }
+  .news-link { display: inline-block; margin-top: 4px; }
+</style>
+<style>
+  main.news { max-width: 860px; margin: 0 auto; padding: 28px 24px 80px; }
+  main.news h2 { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  main.news h2 .tag { font-size: .85rem; font-weight: 400; text-decoration: none; }
+  main.news section { border-top: 1px solid var(--line); }
+  .back { display: inline-block; margin-bottom: 8px; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="news">
+  <a class="back" href="./">← BLVD</a>
+  <header class="hero"><h1>What's new · Novidades</h1><p>Release notes of every version (in Portuguese). As notas de cada versão.</p>
+    <div class="cta"><a class="download" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest/download/BLVD-win-x64.zip">Download for Windows</a></div></header>
+  
+    <section id="v1.3.0">
+      <h2>BLVD 1.3.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.3.0">GitHub →</a></h2>
+      <h4>Novidades</h4>
+<p><b>Material</b></p>
+<ul><li><b>Prévia 3D</b> do VMT enquanto você edita: esfera, cubo ou plano, com textura, cor, transparência, relevo do bump map e brilho de <code>$envmap</code>/<code>$phong</code>. Acha as texturas na pasta <code>materials</code> do VMT e no conteúdo do Garry's Mod.</li></ul>
+<p><b>Texturas</b></p>
+<ul><li><b>Gerar normal maps</b> a partir das cores: no Converter (para cada imagem sem <code>_normal</code>, já ligado como <code>$bumpmap</code>) e no Visualizador (<i>Edit → Generate normal map…</i>).</li><li><b>Histórico do Converter</b>: as últimas 10 conversões, para repetir com um clique.</li></ul>
+<p><b>Props</b></p>
+<ul><li>Página <b>Props</b>: todos os props compilados, com imagem, caminho para o Hammer/Lua, tamanho, triângulos e LODs; copiar o caminho, abrir a pasta, excluir.</li><li><b>Skins</b> (<code>$texturegroup</code>): o mesmo modelo com outras texturas, com seletor na prévia.</li><li><b>Props físicos</b> (<code>prop_physics</code>): massa estimada pelo volume e pela surface property, e <code>prop_data</code> escolhido pelo tamanho.</li><li><b>Letreiro a partir de texto</b>: digite, escolha fonte, cor e contorno, e siga para a mesma janela do <i>From image</i>.</li><li><b>Letreiro com luz</b>: a frente acende no escuro (<code>$selfillum</code>), inteira ou só nas partes claras.</li></ul>
+<p><b>Mapas</b></p>
+<ul><li><b>Pack into the map…</b>: coloca o conteúdo custom dentro de uma cópia do <code>.bsp</code> (<code>nome_packed.bsp</code>); o original fica como está.</li></ul>
+<p><b>Ajuda</b></p>
+<ul><li>Botão <b>Help</b> na barra lateral: abre o guia na seção da página em que você está, no idioma do app.</li></ul>
+<h4>Observações</h4>
+<ul><li>Empacotar conteúdo muda o checksum do mapa: quem tem a versão antiga precisa da nova.</li><li>Os menus do Explorer (<i>Open with BLVD</i>, <i>Convert to VTF</i>) continuam em inglês.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+    </section>
+    <section id="v1.2.0">
+      <h2>BLVD 1.2.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.2.0">GitHub →</a></h2>
+      <h4>Novidades</h4>
+<ul><li><b>Português do Brasil.</b> O BLVD continua abrindo em inglês; em <b>Settings → Language</b> escolha <i>Português (Brasil)</i> e clique em <b>Restart now</b>.</li><li><b>Guia para iniciantes</b> (<code>Guide.html</code>, ao lado do <code>BLVD.exe</code>), em inglês e português: primeiros passos, conceitos do Source, cada página do programa e problemas comuns. O mesmo guia está em <a href="https://donosonion.github.io/blvd/">https://donosonion.github.io/blvd/</a>.</li><li>A página <b>Map</b> agora é só a verificação de conteúdo do mapa: o <i>Overview and signs</i> foi retirado.</li></ul>
+<h4>Correções</h4>
+<ul><li>O BLVD fechava com erro (e não salvava as configurações) quando a janela era fechada maximizada ou minimizada.</li></ul>
+<h4>Observações</h4>
+<ul><li>Os menus do Explorer (<i>Open with BLVD</i>, <i>Convert to VTF</i>) continuam em inglês.</li><li>No Windows 11, eles ficam em <b>Mostrar mais opções</b>.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+    </section>
+    <section id="v1.1.0">
+      <h2>BLVD 1.1.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.1.0">GitHub →</a></h2>
+      <h4>Novidades</h4>
+<p><b>Atualização dentro do app</b></p>
+<ul><li><b>Update now</b>: quando há versão nova, o BLVD baixa o pacote certo, confere o SHA256, troca os arquivos e reinicia, mantendo as configurações. Vale a partir desta versão (quem está na 1.0.0 baixa esta por aqui).</li></ul>
+<p><b>Model</b></p>
+<ul><li><b>From image…</b>: transforma uma imagem (logo, letreiro, placa) num prop sólido, com furos, laterais mais escuras e uma parte por peça. Contorno ao vivo, números exatos em todas as opções e tamanho em unidades (altura, largura e espessura).</li><li><b>Colisão ajustada à forma</b> (novo padrão): pedaços convexos que deixam abertos vãos, o miolo das letras e o espaço embaixo de mesas, com limite de peças (<i>Most pieces</i>, padrão 16).</li><li>Os props compilados ficam de frente para +X, como no Hammer.</li><li>Aviso quando o modelo parece deitado, com <b>Stand it up</b>.</li><li>Prévia 3D com fundo escuro, claro ou xadrez e grade no chão; <b>Compiled</b> mostra o prop lido de volta dos arquivos gerados, com cada LOD.</li></ul>
+<p><b>Convert</b></p>
+<ul><li>Mapas ligados: <code>_normal</code> e <code>_spec</code> viram o <code>$bumpmap</code> e o <code>$envmapmask</code> do mesmo VMT.</li><li>Imagens numeradas viram um VTF animado (opcional).</li><li><b>Preview</b> do que vai ser gravado, sem gravar nada.</li><li>Arquivos soltos em qualquer lugar da janela vão para a página certa.</li></ul>
+<p><b>Imagens</b></p>
+<ul><li>WebP (e AVIF/HEIC com as extensões da Microsoft Store) e SVG/SVGZ em todo o app. O SVG mantém a proporção ao virar textura.</li></ul>
+<p><b>Map</b> (nova página)</p>
+<ul><li>Confere o conteúdo de um <code>.bsp</code> ou <code>.vmf</code>: o que falta, o que é custom (precisa ir com o mapa) e o que vem da Workshop ou de jogos montados. <b>Copy custom content…</b> junta os arquivos custom num addon.</li><li><b>Overview and signs</b>: transforma um render de cima num mapa de ruas, com placas de trânsito e sinalização horizontal, e exporta a imagem ou um overview do Source.</li></ul>
+<h4>Correções</h4>
+<ul><li>O Convert fechava sozinho ao converter mais de umas cinco imagens.</li><li>O casco convexo da colisão podia levar minutos em peças finas ou muito pequenas.</li><li>"Could not load" ao abrir uma imagem WebP no <i>From image…</i>.</li><li>Furos pequenos preenchidos em logos com transparência apareciam pretos.</li></ul>
+<h4>Observações</h4>
+<ul><li>Os menus do Explorer guardam o caminho do executável: se mover a pasta, desligue e ligue de novo em Settings.</li><li>No Windows 11, <i>Open with BLVD</i> e <i>Convert to VTF</i> ficam em <b>Mostrar mais opções</b>.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+    </section>
+    <section id="v1.0.0">
+      <h2>BLVD 1.0.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.0.0">GitHub →</a></h2>
+      <h4>O que o BLVD faz</h4>
+<ul><li><b>Viewer</b>: zoom no cursor, canais RGBA, transparência, tile, frames/faces/slices/mipmaps, animação, HDR; edição de versão, flags, reflectividade e recursos; Save/Export/Copy/Paste com alpha; abas (Ctrl+T, Ctrl+W, Ctrl+Tab).</li><li><b>Edit</b>: girar, espelhar, redimensionar, inverter o verde (normal maps), trocar R/B e regenerar mipmaps.</li><li><b>Material</b>: editor de VMT com cores por sintaxe e validação; formulário <b>Create…</b> com prévia.</li><li><b>Convert</b>: imagens selecionadas ou pastas inteiras, com progresso, cancelamento, log e <b>Watch</b> (reconverte ao salvar).</li><li><b>Model</b>: transforma um modelo (OBJ, FBX, glTF, DAE, 3DS…) num prop estático do Garry's Mod, sem Blender: texturas convertidas e VMTs, colisão (casco convexo do modelo inteiro, por parte ou da malha de colisão do arquivo), hitboxes, LODs automáticos, limite de tamanho das texturas e só os arquivos que o GMod usa. Prévia 3D com colisão, hitboxes e um <code>info_player_start</code> em escala real; ajuste de unidades, eixo, rotação e tamanho; estimativa do tamanho final antes de compilar. Usa o <code>studiomdl</code> do Garry's Mod instalado.</li><li><b>Integração com o Windows</b> (Settings, por usuário, sem administrador): <i>Open with BLVD</i> em .vtf/.vmt, <i>Convert to VTF</i> nas imagens (janela com as pastas do VTF e do VMT, o caminho do <code>$basetexture</code> e o VMT inteiro) e miniaturas de .vtf no Explorer.</li></ul>
+<h4>Observações</h4>
+<ul><li>Quem usava as versões de teste anteriores (3.0.0-preview) não recebe o aviso desta atualização: baixe-a por aqui. As configurações não passam sozinhas para a versão nova.</li><li>Os menus do Explorer guardam o caminho do executável: se mover a pasta, desligue e ligue de novo em Settings.</li><li>No Windows 11, <i>Open with BLVD</i> e <i>Convert to VTF</i> ficam em <b>Mostrar mais opções</b>.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+    </section>
+</main>
+<script>
+  try { var t = localStorage.getItem("blvd-guide-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+</body>
+</html>

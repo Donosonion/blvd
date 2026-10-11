@@ -161,9 +161,10 @@
   }
   .tip { background: var(--accent-soft); }
   .note { background: var(--warn-soft); }
-  .tip b, .note b { display: block; margin-bottom: 2px; }
-  .note b { color: var(--warn); }
-  .tip b { color: var(--accent-text); }
+  /* The first bold word is the box's title; bold words in the text stay inline. */
+  .tip > b:first-child, .note > b:first-child { display: block; margin-bottom: 2px; }
+  .note > b:first-child { color: var(--warn); }
+  .tip > b:first-child { color: var(--accent-text); }
 
   table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: .94rem; background: var(--surface); border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
   th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -217,6 +218,15 @@
   .cta .ghost { color: #f4efff; border: 1px solid rgba(255, 255, 255, .35); }
   .cta .ghost:hover { background: rgba(255, 255, 255, .1); }
   .hero a { color: inherit; }
+
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 18px 0; }
+  .gallery figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .gallery figure.wide { grid-column: 1 / -1; }
+  .gallery img { display: block; width: 100%; height: auto; }
+  .gallery figcaption { padding: 10px 14px; color: var(--muted); font-size: .92rem; }
+  .downloads { margin-top: 14px; position: relative; z-index: 1; color: #ddd2f7; font-size: .95rem; min-height: 1.4em; }
+  .downloads b { color: #fff; }
+  .news-link { display: inline-block; margin-top: 4px; }
 </style>
 
 <script>
@@ -254,12 +264,14 @@
     </a>
     <ol data-lang="en">
       <li><a href="#en-start">Getting started</a></li>
+      <li><a href="#en-gallery">See it</a></li>
       <li><a href="#en-concepts">Source concepts in 2 minutes</a></li>
       <li><a href="#en-viewer">Viewer</a></li>
       <li><a href="#en-material">Material</a></li>
       <li><a href="#en-convert">Convert</a></li>
       <li><a href="#en-model">Model</a></li>
       <li><a href="#en-from-image">From image</a></li>
+      <li><a href="#en-props">Props</a></li>
       <li><a href="#en-map">Map</a></li>
       <li><a href="#en-settings">Settings and Windows integration</a></li>
       <li><a href="#en-shortcuts">Shortcuts</a></li>
@@ -267,12 +279,14 @@
     </ol>
     <ol data-lang="pt">
       <li><a href="#pt-inicio">Começando</a></li>
+      <li><a href="#pt-gallery">Veja</a></li>
       <li><a href="#pt-conceitos">Conceitos do Source em 2 minutos</a></li>
       <li><a href="#pt-visualizador">Visualizador</a></li>
       <li><a href="#pt-material">Material</a></li>
       <li><a href="#pt-converter">Converter</a></li>
       <li><a href="#pt-modelo">Modelo</a></li>
       <li><a href="#pt-a-partir-de-imagem">A partir de imagem</a></li>
+      <li><a href="#pt-props">Props</a></li>
       <li><a href="#pt-mapa">Mapa</a></li>
       <li><a href="#pt-configuracoes">Configurações e integração com o Windows</a></li>
       <li><a href="#pt-atalhos">Atalhos</a></li>
@@ -293,6 +307,7 @@
         into Garry's Mod props and checks the content of your maps. This guide shows what each part does and how to get
         from a file on your computer to the result in the game.</p>
       <div class="cta"><a class="download" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest/download/BLVD-win-x64.zip">Download for Windows</a><a class="ghost" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest">Release notes</a></div>
+      <div class="downloads" data-downloads></div>
       <div class="tags"><span>VTF &amp; VMT</span><span>Batch conversion</span><span>Garry's Mod props</span><span>Maps</span><span>Windows 10/11</span></div>
     </header>
 
@@ -317,8 +332,21 @@
       </div>
       <div class="tip"><b>Choose your language</b>BLVD starts in English. To use it in Portuguese, go to <b>Settings →
         Language</b>, pick <i>Português (Brasil)</i> and click <b>Restart now</b>.</div>
+      <div class="tip"><b>Help on every page</b>The <b>Help</b> button at the bottom of the left bar opens this guide at the
+        section about the page you are on, in the language of the app.</div>
       <div class="tip"><b>Your settings travel with the program</b>They are kept in <code>BLVD.settings.json</code>, next to
         <code>BLVD.exe</code>. Copy the folder to another computer and your preferences go with it.</div>
+    </section>
+
+
+    <section id="en-gallery">
+      <h2>See it</h2>
+      <p class="lead">What BLVD looks like. <a class="news-link" href="news.html">What changed in each version →</a></p>
+      <div class="gallery">
+        <figure class="wide"><img src="img/orbit.webp" alt="" width="800" height="429" loading="lazy"><figcaption>A sign made from an image, turning in the Model preview: collision in green, a player for scale.</figcaption></figure>
+        <figure><img src="img/model.webp" alt="" loading="lazy"><figcaption>The Model page: size, orientation, collision fitted to the shape, size estimate.</figcaption></figure>
+        <figure><img src="img/viewer.webp" alt="" loading="lazy"><figcaption>The Viewer: a 2048 px texture, its mipmaps, format and properties.</figcaption></figure>
+      </div>
     </section>
 
     <section id="en-concepts">
@@ -350,6 +378,8 @@
         <li><b>Properties:</b> VTF version, start frame, bump scale, reflectivity, flags and resources (LOD, Information).</li>
         <li><b>Edit menu:</b> rotate, flip, resize (keeping the proportions, with ½ and ×2), invert the green channel of
           normal maps (DirectX ↔ OpenGL), swap red and blue, regenerate mipmaps.</li>
+        <li><b>Generate normal map…</b> (Edit menu): opens a new tab with a normal map made from the texture's colours —
+          brighter means higher. Save it as <code>name_normal.vtf</code> and point <code>$bumpmap</code> at it.</li>
         <li><b>Save and export:</b> Save, Save as, Export (PNG, TGA, BMP, JPG) and Export all for every frame. Copy and Paste
           keep transparency — pasting creates a new texture from the copied image.</li>
       </ul>
@@ -367,6 +397,10 @@
           options such as <code>$translucent</code>, <code>$alphatest</code>, <code>$additive</code>, <code>$nocull</code>
           and <code>$halflambert</code>, with a live preview.</li>
         <li>If a saved texture is open in the Viewer, Create… starts with it as the base texture.</li>
+        <li><b>3D preview</b> (button in the toolbar): the material on a sphere, cube or plane, updated as you type. Drag to
+          turn it, wheel to zoom. It shows the base texture, colour tint, transparency, the bump map's relief and a shine
+          for <code>$envmap</code>/<code>$phong</code>. Textures are looked up in the <code>materials</code> folder the VMT is in,
+          then in Garry's Mod's content; a texture that can't be found shows as a grey checker, with its name below.</li>
       </ul>
       <div class="recipe"><b>Recipe: a material for a new texture</b>
         Open the VTF in the Viewer and save it inside a <code>materials</code> folder → go to Material → <b>Create…</b> →
@@ -397,6 +431,10 @@
         <li><b>Watch:</b> in Folder mode, BLVD watches the folder and converts each image again as soon as you save it in
           your image editor.</li>
         <li><b>Keep VMTs:</b> doesn't overwrite VMTs you edited by hand.</li>
+        <li><b>Generate normal maps:</b> images without their own <code>_normal</code> get one made from their colours
+          (with an adjustable strength), linked as <code>$bumpmap</code> — relief for walls and floors without extra work.</li>
+        <li><b>History:</b> the last 10 conversions, with their folders and options. Pick one to fill the page in again,
+          then just click Convert.</li>
         <li>Formats: PNG, JPG, TGA, BMP, DDS, GIF, TIF, <b>WebP</b> and <b>SVG</b> (an SVG is drawn at high resolution,
           without stretching).</li>
       </ul>
@@ -438,6 +476,14 @@
         <li>Models without a material file (common with AI-generated models) pick up the images next to them named like
           <code>albedo</code>, <code>basecolor</code>, <code>texture_diffuse</code> and <code>normal</code>.</li>
       </ul>
+      <h3>Skins</h3>
+      <p>In <b>Skins</b>, add skins and choose, for each material, the image it uses in that skin — the same sign in
+        different colours, a crate clean and dirty. The preview has a skin selector, and in Hammer the prop's
+        <code>skin</code> property picks one.</p>
+      <h3>Static or physics prop</h3>
+      <p><b>Prop type</b>: <i>Static</i> (<code>prop_static</code>, the default: part of the map, never moves) or
+        <i>Physics</i> (<code>prop_physics</code>: falls, can be pushed and picked up with the physics gun). A physics prop
+        needs collision and gets a mass in kilograms — estimated from its size and surface property, editable.</p>
       <div class="note"><b>Garry's Mod must be installed</b><code>studiomdl</code> comes with Garry's Mod and is found
         through your Steam libraries. Compiling happens in a temporary folder: the game folder is never changed.</div>
     </section>
@@ -459,8 +505,28 @@
         <li>In <b>Size</b>, type the height, the width (the proportions are kept) or the thickness in units.</li>
         <li><b>Make prop</b> takes the sign to the Model page, with collision already fitted to the shape. Then just compile.</li>
       </ol>
+      <h3>From text</h3>
+      <p>No image? <b>From text…</b> draws the sign from what you type: font, weight, colour, outline, letter spacing and
+        alignment, with a live preview. It then opens the same window as From image, so thickness, size and light work the
+        same way.</p>
+      <h3>Light</h3>
+      <p><b>Glowing front</b> makes the face light up in the dark (neon, shop fronts at night), with a brightness from 0 to
+        100%. <i>Only bright parts glow</i> keeps the dark background unlit; the sides never glow.</p>
       <div class="tip"><b>A sign you can read from the side</b>Darker sides and a thinner sign keep every letter readable
         from an angle. For a shopfront-sized sign, try 3 × a player's height (216 units).</div>
+    </section>
+
+    <section id="en-props">
+      <h2>Props — what you compiled</h2>
+      <p class="lead">Every prop BLVD compiled, in one list.</p>
+      <ul>
+        <li>The page lists the models in the Model page's output folder (by default <code>garrysmod/addons/blvd_props</code>)
+          and in any other folders you add, with a picture, the path used in Hammer and Lua, size on disk, triangles and
+          LODs. Search by name; sort by newest, name or size.</li>
+        <li><b>Copy model path</b> copies <code>models/…/name.mdl</code>, ready to paste in Hammer or in code.</li>
+        <li><b>Show in Explorer</b> opens the folder; <b>Delete</b> removes the model and the materials only it uses
+          (it asks first).</li>
+      </ul>
     </section>
 
     <section id="en-map">
@@ -475,6 +541,9 @@
           with the map) or <b>Workshop and mounted</b>.</li>
         <li><b>Copy custom content…</b> gathers the custom files into a folder laid out like the game, with an
           <code>addon.json</code>, ready to publish. <b>Save report…</b> saves the list.</li>
+        <li><b>Pack into the map…</b> (for a <code>.bsp</code>) puts those custom files inside a copy of the map,
+          <code>name_packed.bsp</code>: one file that carries everything. The original map isn't changed. Players with the
+          old version of the map will need the new one (its checksum changes).</li>
       </ol>
     </section>
 
@@ -531,7 +600,7 @@
     </section>
 
     <footer>
-      BLVD 1.2 · This guide comes with the program (<code>Guide.html</code>, next to <code>BLVD.exe</code>). BLVD is
+      BLVD 1.3 · This guide comes with the program (<code>Guide.html</code>, next to <code>BLVD.exe</code>). BLVD is
       distributed under the GNU GPL v2 and BLVDLib under the GNU LGPL v2.1.
     </footer>
   </main>
@@ -543,6 +612,7 @@
         em props do Garry's Mod e confere o conteúdo dos seus mapas. Este guia mostra o que cada parte faz e como chegar
         ao resultado no jogo.</p>
       <div class="cta"><a class="download" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest/download/BLVD-win-x64.zip">Baixar para Windows</a><a class="ghost" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest">Notas da versão</a></div>
+      <div class="downloads" data-downloads></div>
       <div class="tags"><span>VTF e VMT</span><span>Conversão em lote</span><span>Props do Garry's Mod</span><span>Mapas</span><span>Windows 10/11</span></div>
     </header>
 
@@ -567,8 +637,21 @@
         <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m12 12 8-4.5M12 12v9M12 12 4 7.5"/></svg></div><h4>Fazer um prop</h4><p>Um modelo FBX, OBJ, glTF… ou um logo vira prop estático do GMod, sem Blender.</p><a class="more" href="#pt-modelo">Modelo →</a></div>
         <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></div><h4>Conferir um mapa</h4><p>Veja o que falta, o que é custom e junte tudo num addon para publicar.</p><a class="more" href="#pt-mapa">Mapa →</a></div>
       </div>
+      <div class="tip"><b>Ajuda em cada página</b>O botão <b>Ajuda</b>, embaixo na barra da esquerda, abre este guia na
+        seção da página em que você está, no idioma do programa.</div>
       <div class="tip"><b>As configurações andam com o programa</b>Elas ficam em <code>BLVD.settings.json</code>, ao lado do
         <code>BLVD.exe</code>. Copiou a pasta para outro computador? As preferências vão junto.</div>
+    </section>
+
+
+    <section id="pt-gallery">
+      <h2>Veja</h2>
+      <p class="lead">Como o BLVD é. <a class="news-link" href="news.html?lang=pt">O que mudou em cada versão →</a></p>
+      <div class="gallery">
+        <figure class="wide"><img src="img/orbit.webp" alt="" width="800" height="429" loading="lazy"><figcaption>Um letreiro feito de uma imagem, girando na prévia do Modelo: a colisão em verde, um jogador para comparar.</figcaption></figure>
+        <figure><img src="img/model.webp" alt="" loading="lazy"><figcaption>A página Modelo: tamanho, orientação, colisão ajustada à forma, estimativa de tamanho.</figcaption></figure>
+        <figure><img src="img/viewer.webp" alt="" loading="lazy"><figcaption>O Visualizador: uma textura de 2048 px, os mipmaps, o formato e as propriedades.</figcaption></figure>
+      </div>
     </section>
 
     <section id="pt-conceitos">
@@ -599,6 +682,8 @@
         <li><b>Propriedades:</b> versão do VTF, start frame, bump scale, reflectividade, flags e recursos (LOD, Information).</li>
         <li><b>Editar:</b> girar, espelhar, redimensionar (com proporção, ½ e ×2), inverter o verde de normal maps
           (DirectX ↔ OpenGL), trocar R e B e regenerar mipmaps.</li>
+        <li><b>Gerar normal map…</b> (menu Editar): abre uma aba nova com um normal map feito das cores da textura — mais
+          claro é mais alto. Salve como <code>nome_normal.vtf</code> e aponte o <code>$bumpmap</code> para ele.</li>
         <li><b>Salvar e exportar:</b> Salvar, Salvar como, Exportar (PNG, TGA, BMP, JPG) e Exportar tudo para todos os
           quadros. Copiar e Colar mantêm a transparência — colar cria uma textura nova a partir da imagem copiada.</li>
       </ul>
@@ -616,6 +701,10 @@
           opções como <code>$translucent</code>, <code>$alphatest</code>, <code>$additive</code>, <code>$nocull</code> e
           <code>$halflambert</code>, com prévia ao vivo.</li>
         <li>Se houver uma textura salva aberta no Visualizador, o Criar… já vem com a base texture preenchida.</li>
+        <li><b>Prévia 3D</b> (botão na barra): o material numa esfera, cubo ou plano, atualizado enquanto você digita. Arraste
+          para girar, roda para aproximar. Mostra a textura base, a cor, a transparência, o relevo do bump map e um brilho
+          para <code>$envmap</code>/<code>$phong</code>. As texturas são procuradas na pasta <code>materials</code> do VMT e
+          depois no conteúdo do GMod; uma que não for encontrada aparece como xadrez cinza, com o nome embaixo.</li>
       </ul>
       <div class="recipe"><b>Receita: material para uma textura nova</b>
         Abra o VTF no Visualizador e salve-o dentro de uma pasta <code>materials</code> → vá para Material → <b>Criar…</b> →
@@ -645,6 +734,10 @@
         <li><b>Observar:</b> no modo Pasta, o BLVD observa a pasta e reconverte cada imagem assim que você a salva no seu
           editor de imagens.</li>
         <li><b>Manter VMTs:</b> não sobrescreve VMTs que você editou à mão.</li>
+        <li><b>Gerar normal maps:</b> imagens sem o próprio <code>_normal</code> ganham um, feito das cores (com intensidade
+          ajustável), ligado como <code>$bumpmap</code> — relevo em paredes e pisos sem trabalho extra.</li>
+        <li><b>Histórico:</b> as últimas 10 conversões, com pastas e opções. Escolha uma para preencher a página de novo e é
+          só clicar em Converter.</li>
         <li>Formatos: PNG, JPG, TGA, BMP, DDS, GIF, TIF, <b>WebP</b> e <b>SVG</b> (um SVG é desenhado em alta resolução,
           sem distorcer).</li>
       </ul>
@@ -686,6 +779,14 @@
         <li>Modelos sem arquivo de material (comum em modelos gerados por IA) pegam as imagens ao lado com nomes como
           <code>albedo</code>, <code>basecolor</code>, <code>texture_diffuse</code> e <code>normal</code>.</li>
       </ul>
+      <h3>Skins</h3>
+      <p>Em <b>Skins</b>, adicione skins e escolha, para cada material, a imagem que ele usa naquela skin — o mesmo letreiro
+        em cores diferentes, uma caixa limpa e suja. A prévia tem um seletor de skin, e no Hammer a propriedade
+        <code>skin</code> do prop escolhe qual.</p>
+      <h3>Prop estático ou físico</h3>
+      <p><b>Tipo de prop</b>: <i>Estático</i> (<code>prop_static</code>, o padrão: faz parte do mapa, nunca se move) ou
+        <i>Físico</i> (<code>prop_physics</code>: cai, pode ser empurrado e pego com a physics gun). Um prop físico precisa de
+        colisão e ganha uma massa em quilos — estimada pelo tamanho e pela surface property, e editável.</p>
       <div class="note"><b>Precisa do Garry's Mod instalado</b>O <code>studiomdl</code> vem com o GMod e é achado pelas
         bibliotecas da Steam. A compilação acontece numa pasta temporária: a pasta do jogo nunca é alterada.</div>
     </section>
@@ -707,8 +808,28 @@
         <li>Em <b>Tamanho</b>, digite a altura, a largura (a proporção é mantida) ou a espessura em unidades.</li>
         <li><b>Criar prop</b> leva o letreiro para o Modelo, já com a colisão ajustada à forma. Daí é só compilar.</li>
       </ol>
+      <h3>A partir de texto</h3>
+      <p>Sem imagem? <b>A partir de texto…</b> desenha o letreiro com o que você digita: fonte, peso, cor, contorno,
+        espaçamento entre letras e alinhamento, com prévia ao vivo. Depois abre a mesma janela do A partir de imagem, então
+        espessura, tamanho e luz funcionam igual.</p>
+      <h3>Luz</h3>
+      <p><b>Frente luminosa</b> faz a face acender no escuro (neon, fachadas à noite), com brilho de 0 a 100%. <i>Só as
+        partes claras brilham</i> deixa o fundo escuro apagado; as laterais nunca brilham.</p>
       <div class="tip"><b>Letreiro legível de lado</b>Laterais mais escuras e espessura menor deixam cada letra legível
         mesmo de ângulo. Para um letreiro do tamanho de uma fachada, experimente 3 × a altura de um jogador (216 unidades).</div>
+    </section>
+
+    <section id="pt-props">
+      <h2>Props — o que você compilou</h2>
+      <p class="lead">Todos os props que o BLVD compilou, numa lista só.</p>
+      <ul>
+        <li>A página lista os modelos da pasta de saída do Modelo (por padrão <code>garrysmod/addons/blvd_props</code>) e de
+          outras pastas que você adicionar, com imagem, o caminho usado no Hammer e no Lua, tamanho em disco, triângulos e
+          LODs. Busque pelo nome; ordene por mais recentes, nome ou tamanho.</li>
+        <li><b>Copiar caminho do modelo</b> copia <code>models/…/nome.mdl</code>, pronto para colar no Hammer ou no código.</li>
+        <li><b>Mostrar no Explorer</b> abre a pasta; <b>Excluir</b> apaga o modelo e os materiais que só ele usa (pergunta
+          antes).</li>
+      </ul>
     </section>
 
     <section id="pt-mapa">
@@ -723,6 +844,9 @@
           ir com o mapa) ou <b>Workshop e montados</b>.</li>
         <li><b>Copiar conteúdo custom…</b> junta os arquivos custom numa pasta com a estrutura do jogo e um
           <code>addon.json</code>, pronta para publicar. <b>Salvar relatório…</b> salva a lista.</li>
+        <li><b>Empacotar no mapa…</b> (para um <code>.bsp</code>) coloca esses arquivos custom dentro de uma cópia do mapa,
+          <code>nome_packed.bsp</code>: um arquivo só, com tudo dentro. O mapa original não muda. Quem tem a versão antiga do
+          mapa vai precisar da nova (o checksum muda).</li>
       </ol>
     </section>
 
@@ -779,7 +903,7 @@
     </section>
 
     <footer>
-      BLVD 1.2 · Este guia acompanha o programa (<code>Guide.html</code>, ao lado do <code>BLVD.exe</code>). BLVD é
+      BLVD 1.3 · Este guia acompanha o programa (<code>Guide.html</code>, ao lado do <code>BLVD.exe</code>). BLVD é
       distribuído sob a GNU GPL v2 e a BLVDLib sob a GNU LGPL v2.1.
     </footer>
   </main>
@@ -826,6 +950,21 @@
       document.querySelectorAll("main section[id]").forEach(function (s) { observer.observe(s); });
     }
   })();
+</script>
+
+<script>
+  // Downloads of every release, from GitHub; nothing shows when offline or rate-limited.
+  fetch("https://api.github.com/repos/EchoRPgm/BLVD-Releases/releases?per_page=100").then(function (r) { return r.ok ? r.json() : []; }).then(function (releases) {
+    var total = 0;
+    releases.forEach(function (rel) { rel.assets.forEach(function (a) { if (/\.zip$/.test(a.name)) total += a.download_count; }); });
+    if (!total) return;
+    var pt = document.documentElement.getAttribute("data-ui-lang") === "pt";
+    document.querySelectorAll("[data-downloads]").forEach(function (el) {
+      var main = el.closest("main");
+      var inPt = main && main.getAttribute("data-lang") === "pt";
+      el.innerHTML = "<b>" + total.toLocaleString(inPt ? "pt-BR" : "en") + "</b> " + (inPt ? "downloads até agora" : "downloads so far");
+    });
+  }).catch(function () {});
 </script>
 </body>
 </html>
