@@ -446,7 +446,9 @@
       <h2>Model — from a 3D model to a Garry's Mod prop</h2>
       <p class="lead">No Blender and no QC writing: open the model, check the preview and click Compile.</p>
       <ol class="steps">
-        <li><b>Open the model</b> (FBX, glTF/GLB, OBJ, DAE, 3DS, BLEND, PLY or STL) with <b>Open model…</b> or drag it in.</li>
+        <li><b>Open the model</b> (FBX, glTF/GLB, OBJ, DAE, 3DS, BLEND, PLY or STL) with <b>Open model…</b> or drag it in.
+          A compiled <b>.mdl</b> opens too, and <b>Game model…</b> picks one of Garry's Mod's own models (type words from
+          its path, like <code>c17 barrel</code>) — to look at, measure, or compile again as a copy of your own.</li>
         <li><b>Check size and orientation.</b> The preview shows a player (<code>info_player_start</code>) at real size
           next to it. Adjust units, up axis and turn; if BLVD says the model seems to be lying down, click
           <b>Stand it up</b>.</li>
@@ -496,6 +498,10 @@
           with a transparent background; a plain background works too.</li>
         <li>The window draws the traced outline over the image: <span style="color:#3ddc84">green</span> around the pieces,
           <span style="color:#ff9f43">orange</span> around the holes that stay open.</li>
+        <li>Choose the <b>Shape</b>: <b>Flat</b> (cut out, like a sign), <b>Inflated</b> (puffed up like a balloon — thick
+          in the middle, the back a mirror of the front; <b>Inflation</b> 100% makes a disc a ball, lower <b>Roundness</b>
+          makes a cushion) or <b>Turned</b> (half the outline spun around a vertical axis: a flat mushroom becomes a round
+          one; pick which half, where the dashed axis is, and how many sides go around).</li>
         <li>Adjust — with the slider or by typing the exact number:
           <ul>
             <li><b>Fill holes smaller than</b>: smaller holes (dots, the inside of small letters) are filled and just painted;</li>
@@ -520,9 +526,13 @@
       <h2>Props — what you compiled</h2>
       <p class="lead">Every prop BLVD compiled, in one list.</p>
       <ul>
-        <li>The page lists the models in the Model page's output folder (by default <code>garrysmod/addons/blvd_props</code>)
-          and in any other folders you add, with a picture, the path used in Hammer and Lua, size on disk, triangles and
-          LODs. Search by name; sort by newest, name or size.</li>
+        <li>The page shows one folder — at first the Model page's output folder (by default
+          <code>garrysmod/addons/blvd_props</code>) — and lists only the props inside it, with a picture, the path used in
+          Hammer and Lua, size on disk, triangles and LODs. Search by name; sort by newest, name or size.</li>
+        <li>Move around with <b>Up</b>, <b>Browse…</b> and <b>Model output</b>, or click one of the subfolders listed with
+          how many props they hold: <code>garrysmod/addons</code> shows every addon, and each addon only its own.</li>
+        <li><b>Open in Model</b> (the cube button) takes the prop to the Model page: look at it in 3D, measure it, or
+          compile it again with other options — it keeps its path, so the new compile replaces it.</li>
         <li><b>Copy model path</b> copies <code>models/…/name.mdl</code>, ready to paste in Hammer or in code.</li>
         <li><b>Show in Explorer</b> opens the folder; <b>Delete</b> removes the model and the materials only it uses
           (it asks first).</li>
@@ -752,7 +762,9 @@
       <h2>Modelo — de modelo 3D a prop do Garry's Mod</h2>
       <p class="lead">Sem Blender e sem escrever QC: abra o modelo, confira a prévia e clique em Compilar.</p>
       <ol class="steps">
-        <li><b>Abra o modelo</b> (FBX, glTF/GLB, OBJ, DAE, 3DS, BLEND, PLY ou STL) por <b>Abrir modelo…</b> ou arrastando.</li>
+        <li><b>Abra o modelo</b> (FBX, glTF/GLB, OBJ, DAE, 3DS, BLEND, PLY ou STL) por <b>Abrir modelo…</b> ou arrastando.
+          Um <b>.mdl</b> compilado também abre, e <b>Modelo do jogo…</b> escolhe um dos modelos do próprio Garry's Mod
+          (digite palavras do caminho, como <code>c17 barrel</code>) — para ver, medir ou compilar de novo como uma cópia sua.</li>
         <li><b>Confira tamanho e orientação.</b> A prévia mostra um jogador (<code>info_player_start</code>) em tamanho
           real ao lado. Ajuste unidades, eixo para cima e giro; se o BLVD avisar que o modelo parece deitado, clique em
           <b>Pôr de pé</b>.</li>
@@ -802,6 +814,10 @@
           ou SVG com fundo transparente; com fundo liso também dá certo.</li>
         <li>Na janela, o contorno traçado aparece por cima da imagem: <span style="color:#3ddc84">verde</span> nas peças e
           <span style="color:#ff9f43">laranja</span> nos furos que ficam abertos.</li>
+        <li>Escolha a <b>Forma</b>: <b>Plano</b> (recortado, como uma placa), <b>Inflado</b> (estufado como um balão —
+          grosso no meio, o verso espelhando a frente; <b>Inflar</b> 100% transforma um disco numa bola, menos
+          <b>Arredondamento</b> faz uma almofada) ou <b>Girado</b> (metade do contorno rodada em volta de um eixo vertical:
+          um cogumelo plano vira um cogumelo redondo; escolha qual metade, onde fica o eixo tracejado e quantos lados em volta).</li>
         <li>Ajuste — com o controle deslizante ou digitando o número exato:
           <ul>
             <li><b>Preencher furos menores que</b>: furos menores (pingos, o miolo de letras pequenas) ficam preenchidos e só pintados;</li>
@@ -826,9 +842,13 @@
       <h2>Props — o que você compilou</h2>
       <p class="lead">Todos os props que o BLVD compilou, numa lista só.</p>
       <ul>
-        <li>A página lista os modelos da pasta de saída do Modelo (por padrão <code>garrysmod/addons/blvd_props</code>) e de
-          outras pastas que você adicionar, com imagem, o caminho usado no Hammer e no Lua, tamanho em disco, triângulos e
-          LODs. Busque pelo nome; ordene por mais recentes, nome ou tamanho.</li>
+        <li>A página mostra uma pasta — no começo, a pasta de saída do Modelo (por padrão
+          <code>garrysmod/addons/blvd_props</code>) — e lista só os props dentro dela, com imagem, o caminho usado no Hammer e
+          no Lua, tamanho em disco, triângulos e LODs. Busque pelo nome; ordene por mais recentes, nome ou tamanho.</li>
+        <li>Navegue com <b>Acima</b>, <b>Procurar…</b> e <b>Saída do Modelo</b>, ou clique numa das subpastas listadas com
+          quantos props têm: <code>garrysmod/addons</code> mostra todos os addons, e cada addon só os dele.</li>
+        <li><b>Abrir no Modelo</b> (o botão do cubo) leva o prop para a página Modelo: veja em 3D, meça ou compile de novo
+          com outras opções — ele mantém o caminho, então a nova compilação o substitui.</li>
         <li><b>Copiar caminho do modelo</b> copia <code>models/…/nome.mdl</code>, pronto para colar no Hammer ou no código.</li>
         <li><b>Mostrar no Explorer</b> abre a pasta; <b>Excluir</b> apaga o modelo e os materiais que só ele usa (pergunta
           antes).</li>
