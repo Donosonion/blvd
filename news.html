@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -229,65 +229,65 @@
 <body>
 <main class="news">
   <a class="back" href="./">← BLVD</a>
-  <header class="hero"><h1>What's new · Novidades</h1><p>Release notes of every version (in Portuguese). As notas de cada versão.</p>
+  <header class="hero"><h1>What's new · Novidades</h1><p>Release notes of every version. As notas de cada versão.</p>
     <div class="cta"><a class="download" href="https://github.com/EchoRPgm/BLVD-Releases/releases/latest/download/BLVD-win-x64.zip">Download for Windows</a></div></header>
   
     <section id="v1.3.1">
       <h2>BLVD 1.3.1 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.3.1">GitHub →</a></h2>
-      <h4>Novidades</h4>
-<ul><li><b>Pacote enxuto</b>: de 270 arquivos para 10. O .NET, o WPF e as bibliotecas vão dentro do <code>BLVD.exe</code>; ao lado ficam só as 5 DLLs nativas do BLVD, as licenças, o README e o guia.</li><li>Quem atualiza de uma versão anterior pelo <b>Update now</b> tem os arquivos antigos que sobraram apagados sozinhos na primeira abertura (as configurações e outros arquivos seus ficam).</li></ul>
-<h4>Observações</h4>
-<ul><li>Na primeira abertura, o Windows extrai partes do .NET para uma pasta temporária; ela pode levar um ou dois segundos a mais que as seguintes.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+      <h4>New</h4>
+<ul><li><b>A lean package</b>: from 270 files down to 10. .NET, WPF and the libraries go inside <code>BLVD.exe</code>; beside it are only BLVD's 5 native DLLs, the licences, the readme and the guide.</li><li>Those who update from an earlier version with <b>Update now</b> have the old leftover files deleted automatically on the first start (settings and your other files stay).</li></ul>
+<h4>Notes</h4>
+<ul><li>On the first start, Windows extracts parts of .NET to a temporary folder; it may take a second or two longer than the next ones.</li><li>Problems and suggestions: open an issue in this repository.</li></ul>
     </section>
     <section id="v1.3.0">
       <h2>BLVD 1.3.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.3.0">GitHub →</a></h2>
-      <h4>Novidades</h4>
+      <h4>New</h4>
 <p><b>Material</b></p>
-<ul><li><b>Prévia 3D</b> do VMT enquanto você edita: esfera, cubo ou plano, com textura, cor, transparência, relevo do bump map e brilho de <code>$envmap</code>/<code>$phong</code>. Acha as texturas na pasta <code>materials</code> do VMT e no conteúdo do Garry's Mod.</li></ul>
-<p><b>Texturas</b></p>
-<ul><li><b>Gerar normal maps</b> a partir das cores: no Converter (para cada imagem sem <code>_normal</code>, já ligado como <code>$bumpmap</code>) e no Visualizador (<i>Edit → Generate normal map…</i>).</li><li><b>Histórico do Converter</b>: as últimas 10 conversões, para repetir com um clique.</li></ul>
+<ul><li><b>3D preview</b> of the VMT as you edit it: sphere, cube or plane, with texture, colour, transparency, bump-map relief and the shine of <code>$envmap</code>/<code>$phong</code>. Finds the textures in the VMT's <code>materials</code> folder and in Garry's Mod's content.</li></ul>
+<p><b>Textures</b></p>
+<ul><li><b>Generate normal maps</b> from the colours: in Convert (for every image without a <code>_normal</code>, already linked as <code>$bumpmap</code>) and in the Viewer (<i>Edit → Generate normal map…</i>).</li><li><b>Convert history</b>: the last 10 conversions, to repeat with one click.</li></ul>
 <p><b>Props</b></p>
-<ul><li>Página <b>Props</b>: todos os props compilados, com imagem, caminho para o Hammer/Lua, tamanho, triângulos e LODs; copiar o caminho, abrir a pasta, excluir.</li><li><b>Skins</b> (<code>$texturegroup</code>): o mesmo modelo com outras texturas, com seletor na prévia.</li><li><b>Props físicos</b> (<code>prop_physics</code>): massa estimada pelo volume e pela surface property, e <code>prop_data</code> escolhido pelo tamanho.</li><li><b>Letreiro a partir de texto</b>: digite, escolha fonte, cor e contorno, e siga para a mesma janela do <i>From image</i>.</li><li><b>Letreiro com luz</b>: a frente acende no escuro (<code>$selfillum</code>), inteira ou só nas partes claras.</li></ul>
-<p><b>Mapas</b></p>
-<ul><li><b>Pack into the map…</b>: coloca o conteúdo custom dentro de uma cópia do <code>.bsp</code> (<code>nome_packed.bsp</code>); o original fica como está.</li></ul>
-<p><b>Ajuda</b></p>
-<ul><li>Botão <b>Help</b> na barra lateral: abre o guia na seção da página em que você está, no idioma do app.</li></ul>
-<h4>Observações</h4>
-<ul><li>Empacotar conteúdo muda o checksum do mapa: quem tem a versão antiga precisa da nova.</li><li>Os menus do Explorer (<i>Open with BLVD</i>, <i>Convert to VTF</i>) continuam em inglês.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+<ul><li><b>Props</b> page: every compiled prop, with a picture, the path for Hammer/Lua, size, triangles and LODs; copy the path, open the folder, delete.</li><li><b>Skins</b> (<code>$texturegroup</code>): the same model with other textures, with a selector in the preview.</li><li><b>Physics props</b> (<code>prop_physics</code>): mass estimated from the volume and the surface property, and <code>prop_data</code> chosen by size.</li><li><b>Signs from text</b>: type, pick a font, colour and outline, and go on to the same window as <i>From image</i>.</li><li><b>Glowing signs</b>: the front lights up in the dark (<code>$selfillum</code>), whole or only its bright parts.</li></ul>
+<p><b>Maps</b></p>
+<ul><li><b>Pack into the map…</b>: puts the custom content inside a copy of the <code>.bsp</code> (<code>name_packed.bsp</code>); the original stays as it is.</li></ul>
+<p><b>Help</b></p>
+<ul><li>A <b>Help</b> button on the left bar: opens the guide at the section of the page you are on, in the app's language.</li></ul>
+<h4>Notes</h4>
+<ul><li>Packing content changes the map's checksum: players with the old version need the new one.</li><li>The Explorer menus (<i>Open with BLVD</i>, <i>Convert to VTF</i>) stay in English.</li><li>Problems and suggestions: open an issue in this repository.</li></ul>
     </section>
     <section id="v1.2.0">
       <h2>BLVD 1.2.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.2.0">GitHub →</a></h2>
-      <h4>Novidades</h4>
-<ul><li><b>Português do Brasil.</b> O BLVD continua abrindo em inglês; em <b>Settings → Language</b> escolha <i>Português (Brasil)</i> e clique em <b>Restart now</b>.</li><li><b>Guia para iniciantes</b> (<code>Guide.html</code>, ao lado do <code>BLVD.exe</code>), em inglês e português: primeiros passos, conceitos do Source, cada página do programa e problemas comuns. O mesmo guia está em <a href="https://donosonion.github.io/blvd/">https://donosonion.github.io/blvd/</a>.</li><li>A página <b>Map</b> agora é só a verificação de conteúdo do mapa: o <i>Overview and signs</i> foi retirado.</li></ul>
-<h4>Correções</h4>
-<ul><li>O BLVD fechava com erro (e não salvava as configurações) quando a janela era fechada maximizada ou minimizada.</li></ul>
-<h4>Observações</h4>
-<ul><li>Os menus do Explorer (<i>Open with BLVD</i>, <i>Convert to VTF</i>) continuam em inglês.</li><li>No Windows 11, eles ficam em <b>Mostrar mais opções</b>.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+      <h4>New</h4>
+<ul><li><b>Brazilian Portuguese.</b> BLVD still opens in English; in <b>Settings → Language</b> pick <i>Português (Brasil)</i> and click <b>Restart now</b>.</li><li><b>A guide for new users</b> (<code>Guide.html</code>, next to <code>BLVD.exe</code>), in English and Portuguese: first steps, Source concepts, every page of the program and common problems. The same guide is at <a href="https://donosonion.github.io/blvd/">https://donosonion.github.io/blvd/</a></li><li>The <b>Map</b> page is now only the map content check: <i>Overview and signs</i> was removed.</li></ul>
+<h4>Fixes</h4>
+<ul><li>BLVD closed with an error (and didn't save its settings) when the window was closed maximized or minimized.</li></ul>
+<h4>Notes</h4>
+<ul><li>The Explorer menus (<i>Open with BLVD</i>, <i>Convert to VTF</i>) stay in English.</li><li>On Windows 11 they are under <b>Show more options</b>.</li><li>Problems and suggestions: open an issue in this repository.</li></ul>
     </section>
     <section id="v1.1.0">
       <h2>BLVD 1.1.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.1.0">GitHub →</a></h2>
-      <h4>Novidades</h4>
-<p><b>Atualização dentro do app</b></p>
-<ul><li><b>Update now</b>: quando há versão nova, o BLVD baixa o pacote certo, confere o SHA256, troca os arquivos e reinicia, mantendo as configurações. Vale a partir desta versão (quem está na 1.0.0 baixa esta por aqui).</li></ul>
+      <h4>New</h4>
+<p><b>In-app updates</b></p>
+<ul><li><b>Update now</b>: when a new version is out, BLVD downloads the right package, checks its SHA256, replaces the files and restarts, keeping your settings. Works from this version on (users of 1.0.0 download this one here).</li></ul>
 <p><b>Model</b></p>
-<ul><li><b>From image…</b>: transforma uma imagem (logo, letreiro, placa) num prop sólido, com furos, laterais mais escuras e uma parte por peça. Contorno ao vivo, números exatos em todas as opções e tamanho em unidades (altura, largura e espessura).</li><li><b>Colisão ajustada à forma</b> (novo padrão): pedaços convexos que deixam abertos vãos, o miolo das letras e o espaço embaixo de mesas, com limite de peças (<i>Most pieces</i>, padrão 16).</li><li>Os props compilados ficam de frente para +X, como no Hammer.</li><li>Aviso quando o modelo parece deitado, com <b>Stand it up</b>.</li><li>Prévia 3D com fundo escuro, claro ou xadrez e grade no chão; <b>Compiled</b> mostra o prop lido de volta dos arquivos gerados, com cada LOD.</li></ul>
+<ul><li><b>From image…</b>: turns an image (logo, sign, plate) into a solid prop, with holes, darker sides and one part per piece. Live outline, exact numbers for every option and size in units (height, width and thickness).</li><li><b>Collision fitted to the shape</b> (new default): convex pieces that keep gaps, the inside of letters and the space under tables open, with a piece limit (<i>Most pieces</i>, default 16).</li><li>Compiled props face +X, as in Hammer.</li><li>A notice when the model seems to lie down, with <b>Stand it up</b>.</li><li>3D preview on a dark, light or checkerboard background with a ground grid; <b>Compiled</b> shows the prop read back from the files written, with each LOD.</li></ul>
 <p><b>Convert</b></p>
-<ul><li>Mapas ligados: <code>_normal</code> e <code>_spec</code> viram o <code>$bumpmap</code> e o <code>$envmapmask</code> do mesmo VMT.</li><li>Imagens numeradas viram um VTF animado (opcional).</li><li><b>Preview</b> do que vai ser gravado, sem gravar nada.</li><li>Arquivos soltos em qualquer lugar da janela vão para a página certa.</li></ul>
-<p><b>Imagens</b></p>
-<ul><li>WebP (e AVIF/HEIC com as extensões da Microsoft Store) e SVG/SVGZ em todo o app. O SVG mantém a proporção ao virar textura.</li></ul>
-<p><b>Map</b> (nova página)</p>
-<ul><li>Confere o conteúdo de um <code>.bsp</code> ou <code>.vmf</code>: o que falta, o que é custom (precisa ir com o mapa) e o que vem da Workshop ou de jogos montados. <b>Copy custom content…</b> junta os arquivos custom num addon.</li><li><b>Overview and signs</b>: transforma um render de cima num mapa de ruas, com placas de trânsito e sinalização horizontal, e exporta a imagem ou um overview do Source.</li></ul>
-<h4>Correções</h4>
-<ul><li>O Convert fechava sozinho ao converter mais de umas cinco imagens.</li><li>O casco convexo da colisão podia levar minutos em peças finas ou muito pequenas.</li><li>"Could not load" ao abrir uma imagem WebP no <i>From image…</i>.</li><li>Furos pequenos preenchidos em logos com transparência apareciam pretos.</li></ul>
-<h4>Observações</h4>
-<ul><li>Os menus do Explorer guardam o caminho do executável: se mover a pasta, desligue e ligue de novo em Settings.</li><li>No Windows 11, <i>Open with BLVD</i> e <i>Convert to VTF</i> ficam em <b>Mostrar mais opções</b>.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+<ul><li>Linked maps: <code>_normal</code> and <code>_spec</code> become the same VMT's <code>$bumpmap</code> and <code>$envmapmask</code>.</li><li>Numbered images become one animated VTF (optional).</li><li><b>Preview</b> of what will be written, without writing anything.</li><li>Files dropped anywhere on the window go to the right page.</li></ul>
+<p><b>Images</b></p>
+<ul><li>WebP (and AVIF/HEIC with the Microsoft Store extensions) and SVG/SVGZ everywhere in the app. SVGs keep their proportions when they become textures.</li></ul>
+<p><b>Map</b> (new page)</p>
+<ul><li>Checks the content of a <code>.bsp</code> or <code>.vmf</code>: what is missing, what is custom (must ship with the map) and what comes from the Workshop or mounted games. <b>Copy custom content…</b> gathers the custom files into an addon.</li><li><b>Overview and signs</b>: turns a top-down render into a street map with traffic signs and road markings, and exports the image or a Source overview. (Removed in 1.2.0.)</li></ul>
+<h4>Fixes</h4>
+<ul><li>Convert closed on its own when converting more than about five images.</li><li>The collision's convex hull could take minutes on thin or very small parts.</li><li>"Could not load" when opening a WebP image in <i>From image…</i>.</li><li>Small filled holes in logos with transparency showed black.</li></ul>
+<h4>Notes</h4>
+<ul><li>The Explorer menus keep the executable's path: if you move the folder, turn them off and on again in Settings.</li><li>On Windows 11, <i>Open with BLVD</i> and <i>Convert to VTF</i> are under <b>Show more options</b>.</li><li>Problems and suggestions: open an issue in this repository.</li></ul>
     </section>
     <section id="v1.0.0">
       <h2>BLVD 1.0.0 <a class="tag" href="https://github.com/EchoRPgm/BLVD-Releases/releases/tag/v1.0.0">GitHub →</a></h2>
-      <h4>O que o BLVD faz</h4>
-<ul><li><b>Viewer</b>: zoom no cursor, canais RGBA, transparência, tile, frames/faces/slices/mipmaps, animação, HDR; edição de versão, flags, reflectividade e recursos; Save/Export/Copy/Paste com alpha; abas (Ctrl+T, Ctrl+W, Ctrl+Tab).</li><li><b>Edit</b>: girar, espelhar, redimensionar, inverter o verde (normal maps), trocar R/B e regenerar mipmaps.</li><li><b>Material</b>: editor de VMT com cores por sintaxe e validação; formulário <b>Create…</b> com prévia.</li><li><b>Convert</b>: imagens selecionadas ou pastas inteiras, com progresso, cancelamento, log e <b>Watch</b> (reconverte ao salvar).</li><li><b>Model</b>: transforma um modelo (OBJ, FBX, glTF, DAE, 3DS…) num prop estático do Garry's Mod, sem Blender: texturas convertidas e VMTs, colisão (casco convexo do modelo inteiro, por parte ou da malha de colisão do arquivo), hitboxes, LODs automáticos, limite de tamanho das texturas e só os arquivos que o GMod usa. Prévia 3D com colisão, hitboxes e um <code>info_player_start</code> em escala real; ajuste de unidades, eixo, rotação e tamanho; estimativa do tamanho final antes de compilar. Usa o <code>studiomdl</code> do Garry's Mod instalado.</li><li><b>Integração com o Windows</b> (Settings, por usuário, sem administrador): <i>Open with BLVD</i> em .vtf/.vmt, <i>Convert to VTF</i> nas imagens (janela com as pastas do VTF e do VMT, o caminho do <code>$basetexture</code> e o VMT inteiro) e miniaturas de .vtf no Explorer.</li></ul>
-<h4>Observações</h4>
-<ul><li>Quem usava as versões de teste anteriores (3.0.0-preview) não recebe o aviso desta atualização: baixe-a por aqui. As configurações não passam sozinhas para a versão nova.</li><li>Os menus do Explorer guardam o caminho do executável: se mover a pasta, desligue e ligue de novo em Settings.</li><li>No Windows 11, <i>Open with BLVD</i> e <i>Convert to VTF</i> ficam em <b>Mostrar mais opções</b>.</li><li>Problemas e sugestões: abra uma issue neste repositório.</li></ul>
+      <h4>What BLVD does</h4>
+<ul><li><b>Viewer</b>: zoom at the cursor, RGBA channels, transparency, tiling, frames/faces/slices/mipmaps, animation, HDR; editing of version, flags, reflectivity and resources; Save/Export/Copy/Paste with alpha; tabs (Ctrl+T, Ctrl+W, Ctrl+Tab).</li><li><b>Edit</b>: rotate, flip, resize, invert the green channel (normal maps), swap R/B and regenerate mipmaps.</li><li><b>Material</b>: a VMT editor with syntax colours and validation; a <b>Create…</b> form with a preview.</li><li><b>Convert</b>: selected images or whole folders, with progress, cancelling, a log and <b>Watch</b> (converts again on save).</li><li><b>Model</b>: turns a model (OBJ, FBX, glTF, DAE, 3DS…) into a Garry's Mod static prop without Blender: converted textures and VMTs, collision (a convex hull of the whole model, one per part, or the file's collision mesh), hitboxes, automatic LODs, a texture size limit and only the files Garry's Mod uses. A 3D preview with collision, hitboxes and an <code>info_player_start</code> at real scale; units, axis, rotation and size; the final size estimated before compiling. Uses the <code>studiomdl</code> of the installed Garry's Mod.</li><li><b>Windows integration</b> (Settings, per user, no administrator): <i>Open with BLVD</i> on .vtf/.vmt, <i>Convert to VTF</i> on images (a window with the VTF and VMT folders, the <code>$basetexture</code> path and the whole VMT) and .vtf thumbnails in Explorer.</li></ul>
+<h4>Notes</h4>
+<ul><li>Those who used the earlier test versions (3.0.0-preview) don't get this update notice: download it here. Settings don't carry over to the new version on their own.</li><li>The Explorer menus keep the executable's path: if you move the folder, turn them off and on again in Settings.</li><li>On Windows 11, <i>Open with BLVD</i> and <i>Convert to VTF</i> are under <b>Show more options</b>.</li><li>Problems and suggestions: open an issue in this repository.</li></ul>
     </section>
 </main>
 <script>
